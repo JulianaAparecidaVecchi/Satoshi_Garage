@@ -70,7 +70,7 @@ def carregar_dados(filename):
             return json.load(arquivo)
     except FileNotFoundError:
         return []
-
+#
 def janela_login():
     global frame_login, login_janela, input_nome, input_senha
     login_janela= ctk.CTk()

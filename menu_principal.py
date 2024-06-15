@@ -30,7 +30,7 @@ def menu_frame(master):
 
     master.rowconfigure(1, weight=1)
 
-    botao_menu(frame_menu, 1, 1, converter_img('./img/icones/garage.png'), lambda: garagem_pessoal.janela_garagem(master))
+    botao_menu(frame_menu, 1, 1, converter_img('./img/icones/garage.png'), lambda: login.janela_garagem(master))
     botao_menu(frame_menu, 2, 1, converter_img('./img/icones/up.png'), upgrade)
     botao_menu(frame_menu, 3, 1, converter_img('./img/icones/sair.png'), lambda: fechar_janela(master))
 
@@ -70,7 +70,7 @@ def geral_frame(master):
     botao_jogar = ctk.CTkButton(master=frame_geral, text='JOGAR', width=100, height=50, font=('Arial', 15), fg_color=cor_2, hover_color=cor_3, text_color='#FFFFFF', command=lambda: iniciar_mapa(mapa_selecionado.get()))
     botao_jogar.grid(row=3, column=1, padx=20, pady=20)
 
-    carro_selecionado = ctk.CTkLabel(master=frame_geral, text='CARRO SELECIONADO', font=('Arial', 15))
+    carro_selecionado = card_carro(frame_geral,login.verificar_dono_carro_selecionado(garagem_pessoal.ler_json("dados_jogadores.json")))
     carro_selecionado.grid(row=3, column=2, columnspan=2)
 
 def mapa(master, row, column, img, variavel, valor):
@@ -95,7 +95,6 @@ def fechar_janela(janela):
 
 def lógica_mapa():
     print('Deserto')
-
 
 def janela_primeiro_login(janela, nome_jogador):
     global carro_sorteado
@@ -140,7 +139,6 @@ def card_carro(janela, lista):
     card.grid(row=1, column=1, columnspan=2)
     return card
 
-
 def sortear_carro_inicial(arquivo, num1, num2):
     with open(arquivo, 'r') as arquivo:
         carros = arquivo.readlines()  
@@ -158,7 +156,16 @@ def adicionar_car_inicial_garage(arquivo,carro,nome_jogador):
         if jogador_atual["nome"] == nome_jogador:
             # Adicionar o carro sorteado à lista de carros na garagem do jogador
             jogador_atual["carros_na_garagem"].append(carro)
+            jogador_atual["carro_selecionado"]=carro
             break  # Encerrar o loop após encontrar o jogador
     
     with open(arquivo, 'w') as arquivo_json:
         json.dump(dados, arquivo_json)
+    
+def botao_padrao(janela,texto,cor,cor_hover,acao):
+    botao = ctk.CTkButton(janela, text=texto, width=100, height=50, fg_color=cor,hover_color=cor_hover,command=acao)
+    return botao
+
+def voltar_janela(janela,abrir_janela):
+    fechar_janela(janela)
+    abrir_janela

@@ -4,7 +4,14 @@ import login
 import json
 
 
+cor_0 = '#FC3441'
+cor_1 = '#ea2828'
+cor_2 = '#050505'
+cor_3 = '#747474'
+cor_4 = '#7c7c7c'
 cor_5 = '#d9c6c6'
+cor_6 = "#EA2828"
+cor_7 = '#FC3441'
 
 def ler_json(arquivo):
     with open(arquivo, 'r') as arquivo_aberto:
@@ -22,6 +29,7 @@ def atualizar_carro(frame, matriz, indice):
     if 0 <= indice < len(matriz):
         cartao_carro = card_carro_garagem(frame, matriz[indice])
         cartao_carro.grid(row=0, column=0)
+
 
 # Função para a janela da garagem
 def card_carro_garagem(janela, lista):
@@ -44,44 +52,7 @@ def card_carro_garagem(janela, lista):
     linha_aceleracao = ctk.CTkLabel(master=card, text=f'Aceleração: {lista[4]}')
     linha_aceleracao.grid(row=5, column=1)
     
-    card.grid(row=1, column=1, columnspan=2)
+    card.grid(row=1, column=1)
     return card
-def janela_garagem(janela):
-    menu_principal.fechar_janela(janela)
-    garagem_janela = ctk.CTk()
-    garagem_janela.title("Garagem")
-    carros=login.verificar_dono_garagem(ler_json("dados_jogadores.json"))
 
-    # Frame para o conteúdo do carro
-    frame_conteudo = ctk.CTkFrame(garagem_janela)
-    frame_conteudo.grid(row=0, column=0, columnspan=3)
 
-    # Índice da linha atual
-    indice_linha_atual = 0
-
-    # Mostrar a primeira linha do arquivo
-    atualizar_carro(frame_conteudo, carros, indice_linha_atual)
-
-    def proxima_linha():
-        nonlocal indice_linha_atual
-        if indice_linha_atual < len(carros) - 1:
-            indice_linha_atual += 1
-            atualizar_carro(frame_conteudo, carros, indice_linha_atual)
-
-    def linha_anterior():
-        nonlocal indice_linha_atual
-        if indice_linha_atual > 0:
-            indice_linha_atual -= 1
-            atualizar_carro(frame_conteudo, carros, indice_linha_atual)
-
-    # Frame para os botões
-    frame_botoes = ctk.CTkFrame(garagem_janela)
-    frame_botoes.grid(row=1, column=0, columnspan=3)
-
-    botao_proximo = ctk.CTkButton(frame_botoes, text='PRÓXIMO', width=100, height=50, command=proxima_linha)
-    botao_proximo.grid(row=1, column=2)
-
-    botao_anterior = ctk.CTkButton(frame_botoes, text='ANTERIOR', width=100, height=50, command=linha_anterior)
-    botao_anterior.grid(row=1, column=0)
-
-    garagem_janela.mainloop()

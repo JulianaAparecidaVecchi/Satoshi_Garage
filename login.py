@@ -5,7 +5,14 @@ import garagem_pessoal
 import menu_principal
 import json
 
-
+cor_0 = '#FC3441'
+cor_1 = '#ea2828'
+cor_2 = '#050505'
+cor_3 = '#747474'
+cor_4 = '#7c7c7c'
+cor_5 = '#d9c6c6'
+cor_6 = "#EA2828"
+cor_7 = '#FC3441'
 cor_botao = "#EA2828"
 cor_botao_hover = '#FC3441'
 dados_arquivo = 'dados_jogadores.json'
@@ -164,7 +171,8 @@ def realizar_cadastro():
         "senha": senha,
         "carros_na_garagem": [],
         "dinheiro_no_banco": 0,
-        "primeiro_login": 0,
+        "carro_selecionado": [],
+        "primeiro_login": 0
     }
 
     salvar_dados(novo_jogador, dados_arquivo)  
@@ -182,5 +190,93 @@ def verificar_dono_garagem(json):
             break  
     return carros
 
+def verificar_dono_carro_selecionado(json):
+    for jogador_atual in json:
+        if jogador_atual["nome"] == nome_user:
+            carro_selecionado=jogador_atual["carro_selecionado"]
+            break  
+    return carro_selecionado
 
+def selecionar_carro():
+    # Carregar os dados dos jogadores do arquivo JSON
+    try:
+        with open('dados_jogadores.json', 'r') as arquivo_json:
+            dados = json.load(arquivo_json)
+    except FileNotFoundError:
+        print("Arquivo 'dados_jogadores.json' não encontrado.")
+        return
+    
+    jogador_encontrado = False
+    
+    # Iterar sobre os jogadores para encontrar o jogador específico
+    for jogador_atual in dados:
+        if jogador_atual["nome"] == nome_user:
+            jogador_atual["carro_selecionado"] = [
+                "Iniciais",
+                "Volkswagen Fusca",
+                "155",
+                "74",
+                "15",
+                "./img/iniciais/volkswagenfusca.png",
+                ""
+            ]
+            
+            jogador_encontrado = True
+            break  # Encerrar o loop após encontrar o jogador
+    
+    # Verificar se o jogador foi encontrado
+    if not jogador_encontrado:
+        print(f"Jogador '{nome_user}' não encontrado.")
+        return
+    
+    # Salvar os dados atualizados de volta no arquivo JSON
+    with open('dados_jogadores.json', 'w') as arquivo_json:
+        json.dump(dados, arquivo_json, indent=4)
+
+def janela_garagem(janela):
+    global garagem_janela, carro_atual
+    menu_principal.fechar_janela(janela)
+    garagem_janela = ctk.CTk()
+    garagem_janela.title("Garagem")
+    carros=verificar_dono_garagem(garagem_pessoal.ler_json("dados_jogadores.json"))
+
+    # Frame para o conteúdo do carro
+    frame_conteudo = ctk.CTkFrame(garagem_janela)
+    frame_conteudo.grid(row=1, column=1)
+
+    # Índice da linha atual
+    indice_linha_atual = 0
+
+    # Mostrar a primeira linha do arquivo
+    garagem_pessoal.atualizar_carro(frame_conteudo, carros, indice_linha_atual)
+
+    def proxima_linha():
+        nonlocal indice_linha_atual
+        if indice_linha_atual < len(carros) - 1:
+            indice_linha_atual += 1
+            garagem_pessoal.atualizar_carro(frame_conteudo, carros, indice_linha_atual)
+
+    def linha_anterior():
+        nonlocal indice_linha_atual
+        if indice_linha_atual > 0:
+            indice_linha_atual -= 1
+            garagem_pessoal.atualizar_carro(frame_conteudo, carros, indice_linha_atual)
+    botao_proximo=menu_principal.botao_padrao(garagem_janela,'PRÓXIMO',cor_2,cor_3,proxima_linha)
+    botao_proximo.grid(row=1,column=2)
+    botao_anterior=menu_principal.botao_padrao(garagem_janela,'ANTERIOR',cor_2,cor_3,linha_anterior)
+    botao_anterior.grid(row=1,column=0)
+    botao_voltar=menu_principal.botao_padrao(garagem_janela,'VOLTAR',cor_1,cor_7,voltar_garagem)
+    botao_voltar.grid(row=3,column=0,pady=20)
+    botao_selecionar=menu_principal.botao_padrao(garagem_janela,'SELECIONAR',cor_2,cor_3,selecionar_carro)
+    botao_selecionar.grid(row=2,column=0)
+    carro_atual=carros[indice_linha_atual]
+    garagem_janela.mainloop()
+
+def voltar_garagem():
+    menu_principal.janela_jogo_inicio(garagem_janela)
+
+def chamada_carro_atual():
+    carro=carro_atual
+    return carro
+    
 

@@ -132,5 +132,47 @@
             ""
         ],
         "primeiro_login": 1
+    },
+    {
+        "nome": "u",
+        "senha": "u",
+        "carros_na_garagem": [
+            [
+                "Iniciais",
+                "Volkswagen Fusca",
+                "155",
+                "74",
+                "15",
+                "./img/iniciais/volkswagenfusca.png",
+                ""
+            ],
+            [
+                "Iniciais",
+                "Renault Clio",
+                "160",
+                "75",
+                "15",
+                "./img/iniciais/renaultclio.png"
+            ],
+            [
+                "Iniciais",
+                "Volkswagen Gol",
+                "180",
+                "80",
+                "12",
+                "./img/iniciais/volkswagengol.png"
+            ]
+        ],
+        "dinheiro_no_banco": 0,
+        "carro_selecionado": [
+            "Iniciais",
+            "Volkswagen Fusca",
+            "155",
+            "74",
+            "15",
+            "./img/iniciais/volkswagenfusca.png",
+            ""
+        ],
+        "primeiro_login": 1
     }
 ]

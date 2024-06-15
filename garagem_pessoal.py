@@ -46,7 +46,8 @@ def card_carro_garagem(janela, lista):
     
     card.grid(row=1, column=1, columnspan=2)
     return card
-def janela_garagem():
+def janela_garagem(janela):
+    menu_principal.fechar_janela(janela)
     garagem_janela = ctk.CTk()
     garagem_janela.title("Garagem")
     carros=login.verificar_dono_garagem(ler_json("dados_jogadores.json"))

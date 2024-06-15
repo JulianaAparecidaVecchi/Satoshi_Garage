@@ -30,7 +30,7 @@ def menu_frame(master):
 
     master.rowconfigure(1, weight=1)
 
-    botao_menu(frame_menu, 1, 1, converter_img('./img/icones/garage.png'), lambda: garagem_pessoal.janela_garagem())
+    botao_menu(frame_menu, 1, 1, converter_img('./img/icones/garage.png'), lambda: garagem_pessoal.janela_garagem(master))
     botao_menu(frame_menu, 2, 1, converter_img('./img/icones/up.png'), upgrade)
     botao_menu(frame_menu, 3, 1, converter_img('./img/icones/sair.png'), lambda: fechar_janela(master))
 
@@ -39,8 +39,8 @@ def menu_frame(master):
 
 def converter_img(endereco):
     try:
-        img_pil = Image.open(endereco)
-        img_ctk = ctk.CTkImage(img_pil)
+        img_pil = Image.open(endereco)  # Open the image with PIL
+        img_ctk = ImageTk.PhotoImage(img_pil)  # Convert the PIL image to Tkinter PhotoImage
         return img_ctk
     except Exception as e:
         print(f"Erro ao converter imagem: {e}")

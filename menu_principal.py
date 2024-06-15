@@ -32,7 +32,7 @@ def menu_frame(master):
     master.rowconfigure(1, weight=1)
 
     botao_menu(frame_menu, 1, 1, converter_img('./img/icones/garage.png'), lambda: login.janela_garagem(master))
-    botao_menu(frame_menu, 2, 1, converter_img('./img/icones/up.png'), lambda: loja.janela_garagem(master))
+    botao_menu(frame_menu, 2, 1, converter_img('./img/icones/loja.png'), lambda: loja.janela_garagem(master))
     botao_menu(frame_menu, 3, 1, converter_img('./img/icones/sair.png'), lambda: fechar_janela(master))
 
     frame_menu.columnconfigure(0, weight=1)

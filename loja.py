@@ -50,6 +50,7 @@ def atualizar_carro(frame, lista, indice):
 
 # Função para a janela da garagem
 def janela_garagem(janela):
+    global garagem_janela
     menu_principal.fechar_janela(janela)
     garagem_janela = ctk.CTk()
     garagem_janela.title("Loja")
@@ -110,6 +111,8 @@ def janela_garagem(janela):
 
     botao_comprar = ctk.CTkButton(frame_botoes, text='COMPRAR', width=100, height=50, command=exibir_valor_carro)
     botao_comprar.grid(row=0, column=1)
+    botao_sair = ctk.CTkButton(frame_botoes, text='SAIR DA LOJA', width=100, height=50, command=voltar_loja)
+    botao_sair.grid(row=0, column=3)
 
     garagem_janela.mainloop()
 
@@ -125,4 +128,6 @@ def comprar_carro(valor_do_carro):
         # Se o jogador não tiver dinheiro suficiente, exibe a mensagem de erro
         tkmsgbox.showerror("Erro", "Dinheiro insuficiente.")
 
+def voltar_loja():
+    menu_principal.janela_jogo_inicio(garagem_janela)
 # Chamada da função para abrir a janela da garagem

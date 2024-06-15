@@ -1,12 +1,15 @@
 import tkinter as tk
 from tkinter import messagebox
 import customtkinter as ctk
+import garagem_pessoal
 import menu_principal
 import json
+
 
 cor_botao = "#EA2828"
 cor_botao_hover = '#FC3441'
 dados_arquivo = 'dados_jogadores.json'
+
 
 
 def escrever_json(dados, arquivo):
@@ -42,20 +45,21 @@ def incrementar_primeiro_login(nome_usuario, filename):
     return False  # Indica que não foi encontrado nenhum jogador com o nome de usuário
 
 def login_usuario():
-
-    nome = input_nome.get()  # Obtém o nome do usuário
+    global nome_user
+    nomeus = input_nome.get()  # Obtém o nome do usuário
+    nome_user=nomeus
     senha = input_senha.get()
     dados = carregar_dados(dados_arquivo)  
 
     login_sucesso = False  # Variável de controle para verificar se o login foi bem-sucedido
 
     for jogador in dados:
-        if jogador.get("nome") == nome and jogador.get("senha") == senha:
+        if jogador.get("nome") == nomeus and jogador.get("senha") == senha:
             messagebox.showinfo("Sucesso", "Login realizado com sucesso")
             login_sucesso = True  # Define a variável de controle como True para indicar que o login foi bem-sucedido
             if jogador.get("primeiro_login") == 0:
-                incrementar_primeiro_login(nome, dados_arquivo)  
-                menu_principal.janela_primeiro_login(login_janela,nome)
+                incrementar_primeiro_login(nomeus, dados_arquivo)  
+                menu_principal.janela_primeiro_login(login_janela,nomeus)
             else:
                 menu_principal.janela_jogo_inicio(login_janela)  
             break  # Sai do loop assim que o login for bem-sucedido
@@ -170,6 +174,13 @@ def realizar_cadastro():
 def voltar_login():
     frame_cadastro.grid_forget()
     frame_login.grid(column=2, row=1, padx=20, pady=20)
+
+def verificar_dono_garagem(json):
+    for jogador_atual in json:
+        if jogador_atual["nome"] == nome_user:
+            carros=jogador_atual["carros_na_garagem"]
+            break  
+    return carros
 
 
 

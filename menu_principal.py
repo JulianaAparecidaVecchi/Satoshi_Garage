@@ -1,7 +1,9 @@
 import tkinter as tk
 import customtkinter as ctk
 from PIL import Image, ImageTk
+import teste_corrida
 import random
+import corrida
 import garagem_pessoal
 import loja
 import login
@@ -14,7 +16,8 @@ cor_4 = '#7c7c7c'
 cor_5 = '#d9c6c6'
 cor_6 = "#EA2828"
 cor_7 = '#FC3441'
-
+cor_8= '#009E20'
+cor_9= '#41D95F'
 
 def janela_jogo_inicio(janela):
     fechar_janela(janela)
@@ -68,7 +71,7 @@ def geral_frame(master):
     mapa(frame_geral, 2, 2, converter_img('./img/icones/campo.png'), mapa_selecionado, 2)
     mapa(frame_geral, 2, 3, converter_img('./img/icones/deserto.png'), mapa_selecionado, 3)
 
-    botao_jogar = ctk.CTkButton(master=frame_geral, text='JOGAR', width=100, height=50, font=('Arial', 15), fg_color=cor_2, hover_color=cor_3, text_color='#FFFFFF', command=lambda: iniciar_mapa(mapa_selecionado.get()))
+    botao_jogar = ctk.CTkButton(master=frame_geral, text='JOGAR', width=100, height=50, font=('Arial', 15), fg_color=cor_2, hover_color=cor_3, text_color='#FFFFFF', command=lambda: iniciar_mapa(mapa_selecionado.get(),master))
     botao_jogar.grid(row=3, column=1, padx=20, pady=20)
 
     carro_selecionado = card_carro(frame_geral,login.verificar_dono_carro_selecionado(garagem_pessoal.ler_json("dados_jogadores.json")))
@@ -78,9 +81,9 @@ def mapa(master, row, column, img, variavel, valor):
     mapa_botao = ctk.CTkButton(master=master, image=img, fg_color=cor_5, hover_color=cor_0,text='', width=20, height=20, command=lambda: variavel.set(valor))
     mapa_botao.grid(row=row, column=column, padx=10,pady=20)
 
-def iniciar_mapa(mapa):
+def iniciar_mapa(mapa,janela):
     if mapa == 1:
-        print('Mapa 1')
+        janela_cidade(janela)
     elif mapa == 2:
         print('Mapa 2')
     elif mapa == 3:
@@ -170,3 +173,31 @@ def botao_padrao(janela,texto,cor,cor_hover,acao):
 def voltar_janela(janela,abrir_janela):
     fechar_janela(janela)
     abrir_janela
+
+def janela_cidade(janela):
+    global janela_mapa 
+    fechar_janela(janela)
+    janela_mapa = ctk.CTk()
+    janela_mapa.title('CIDADE')
+    janela_mapa.configure(bg='white')
+    janela_mapa.minsize(300, 650)
+    carro_selecionado=login.verificar_dono_carro_selecionado(garagem_pessoal.ler_json("dados_jogadores.json"))
+    carro_jogador=card_carro(janela_mapa,carro_selecionado)
+    carro_jogador.grid(row=0,column=1)
+    carro_st=corrida.sortear_carro_mapa('carros.txt',1,19)
+    carro_sorteado=card_carro(janela_mapa,carro_st)
+    carro_sorteado.grid(row=0,column=3)
+    #Convertendo para int
+    v1,a1,p1=corrida.passar_int(carro_selecionado,2),corrida.passar_int(carro_selecionado,3),corrida.passar_int(carro_selecionado,4)
+    v2,a2,p2=corrida.passar_int(carro_st,2),corrida.passar_int(carro_st,3),corrida.passar_int(carro_st,4)
+    botao_aceitar=botao_padrao(janela_mapa,"ACEITAR CORRIDA",cor_8, cor_9,lambda:corrida.aceitar_corrida(v1,a1,p1,v2,a2,p2))
+    botao_aceitar.grid(row=1,column=3)
+    botao_voltar=botao_padrao(janela_mapa,"RECUSAR CORRIDA",cor_1, cor_7,voltar_garagem)
+    botao_voltar.grid(row=1,column=1)
+    janela_mapa.mainloop()
+
+def voltar_garagem():
+    janela_jogo_inicio(janela_mapa)
+
+
+

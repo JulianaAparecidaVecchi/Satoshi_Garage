@@ -17,6 +17,7 @@ Iniciais,Ford Belina,150,72,15,./img/iniciais/fordbelina.png
 Iniciais,Nissan March,165,77,14,./img/iniciais/nissanmarch.png
 Iniciais,Renault Clio,160,75,15,./img/iniciais/renaultclio.png
 Iniciais,Fiat Punto,175,80,12,./img/iniciais/fiatpunto.png
+Ultra_Raro,Fiat_Uno_Com_Escada,650,750,90./img/ultra_raro/unoescada.png
 Medianos,Volkswagen Jetta,220,140,15
 Medianos,Honda Civic,210,135,15
 Medianos,Toyota Corolla,215,138,15

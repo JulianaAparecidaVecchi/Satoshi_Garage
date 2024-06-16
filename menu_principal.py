@@ -2,6 +2,7 @@ import tkinter as tk
 import customtkinter as ctk
 from PIL import Image, ImageTk
 import random
+import dinheiro
 import corrida
 import garagem_pessoal
 import loja
@@ -61,8 +62,8 @@ def geral_frame(master):
     titulo_mapa = ctk.CTkLabel(master=frame_geral, text='MAPAS', font=('Arial', 15,'bold'))
     titulo_mapa.grid(row=1, column=2)
 
-    dinheiro = ctk.CTkLabel(master=frame_geral, text=f"R$:{login.dinheiro_atual("dados_jogadores.json")}", font=('Arial', 15))
-    dinheiro.grid(row=1, column=3)
+    dinheiro_jogador = ctk.CTkLabel(master=frame_geral, text=f"R$:{dinheiro.dinheiro_atual("dados_jogadores.json")}", font=('Arial', 15))
+    dinheiro_jogador.grid(row=1, column=3)
 
     mapa_selecionado = tk.IntVar()
 

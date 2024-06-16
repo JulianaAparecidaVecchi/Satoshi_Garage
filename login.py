@@ -143,6 +143,7 @@ def login_cadastrar():
     botao_voltar.grid(column=1, row=7, pady=10)
 
 def realizar_cadastro():
+    global nome_unico
     nome = input_nome_cadastro.get()
     senha = input_senha_cadastro.get()
 
@@ -278,22 +279,6 @@ def adicionar_car_garage(arquivo,carro):
                 break  # Encerrar o loop após encontrar o jogador
     
     cadastro.escrever_json(dados,arquivo)
-
-def dinheiro_atual(arquivo):
-
-    with open(arquivo, 'r') as arquivo_json:
-        dados = json.load(arquivo_json)
-    
-    # Iterar sobre os jogadores para encontrar o jogador específico
-    for jogador_atual in dados:
-        if jogador_atual["nome"] == nome_user:
-                dinheiro=jogador_atual["dinheiro_no_banco"]
-                break  # Encerrar o loop após encontrar o jogador
-    
-    with open(arquivo, 'w') as arquivo_json:
-        json.dump(dados, arquivo_json)
-
-    return dinheiro
 
 def subtrair_dinheiro(arquivo,valor_carro):
     with open(arquivo, 'r') as arquivo_json:

@@ -1,5 +1,4 @@
 import tkinter as tk
-import cadastro
 from tkinter import messagebox
 import customtkinter as ctk
 import garagem_pessoal
@@ -18,7 +17,11 @@ cor_botao = "#EA2828"
 cor_botao_hover = '#FC3441'
 dados_arquivo = 'dados_jogadores.json'
 
+nome_user = None  # Variável global para armazenar o nome do usuário logado
 
+def escrever_json(dados, arquivo):
+    with open(arquivo, 'w') as f:
+        json.dump(dados, f, indent=4)
 
 def salvar_dados(jogador, filename):
     try:
@@ -38,23 +41,22 @@ def salvar_dados(jogador, filename):
     with open(filename, 'w') as arquivo:
         json.dump(dados, arquivo, indent=4)
 
-#Incrementa 1 no arquivo json quando for o primeiro login do usuário
 def incrementar_primeiro_login(nome_usuario, filename):
-    dados = cadastro.carregar_dados(filename)
+    dados = carregar_dados(filename)
     for jogador in dados:
         if jogador.get("nome") == nome_usuario:
             primeiro_login = jogador.get("primeiro_login", 0)  # Obtém o valor atual do contador de primeiro login
             jogador["primeiro_login"] = primeiro_login + 1  # Incrementa o valor em 1
-            cadastro.escrever_json(dados, filename)  # Escreve os dados atualizados de volta no arquivo JSON
+            escrever_json(dados, filename)  # Escreve os dados atualizados de volta no arquivo JSON
             return True  # Indica que o contador foi incrementado com sucesso
     return False  # Indica que não foi encontrado nenhum jogador com o nome de usuário
 
 def login_usuario():
     global nome_user
     nomeus = input_nome.get()  # Obtém o nome do usuário
-    nome_user=nomeus
+    nome_user = nomeus
     senha = input_senha.get()
-    dados = cadastro.carregar_dados(dados_arquivo)  
+    dados = carregar_dados(dados_arquivo)  
 
     login_sucesso = False  # Variável de controle para verificar se o login foi bem-sucedido
 
@@ -64,7 +66,7 @@ def login_usuario():
             login_sucesso = True  # Define a variável de controle como True para indicar que o login foi bem-sucedido
             if jogador.get("primeiro_login") == 0:
                 incrementar_primeiro_login(nomeus, dados_arquivo)  
-                menu_principal.janela_primeiro_login(login_janela,nomeus)
+                menu_principal.janela_primeiro_login(login_janela, nomeus)
             else:
                 menu_principal.janela_jogo_inicio(login_janela)  
             break  # Sai do loop assim que o login for bem-sucedido
@@ -73,7 +75,13 @@ def login_usuario():
     if not login_sucesso:
         messagebox.showerror("Erro", "Nome do usuário ou senha incorretos.")
 
-#
+def carregar_dados(filename):
+    try:
+        with open(filename, 'r') as arquivo:
+            return json.load(arquivo)
+    except FileNotFoundError:
+        return []
+
 def janela_login():
     global frame_login, login_janela, input_nome, input_senha
     login_janela= ctk.CTk()
@@ -150,7 +158,7 @@ def realizar_cadastro():
         messagebox.showerror("Erro", "Por favor, preencha todos os campos")
         return
 
-    dados = cadastro.carregar_dados(dados_arquivo)  
+    dados = carregar_dados(dados_arquivo)  
 
     # Verifica se o nome de usuário já existe
     for jogador in dados:
@@ -189,49 +197,36 @@ def verificar_dono_carro_selecionado(json):
             break  
     return carro_selecionado
 
-def janela_garagem(janela):
-    global garagem_janela, carro_atual
-    menu_principal.fechar_janela(janela)
-    garagem_janela = ctk.CTk()
-    garagem_janela.title("Garagem")
-    carros = verificar_dono_garagem(garagem_pessoal.ler_json("dados_jogadores.json"))
+# Lista de carros disponíveis
+carros_disponiveis = {
+    "Volkswagen Gol": ["Iniciais", "Volkswagen Gol", 180, 80, 12, "./img/iniciais/volkswagengol.png"],
+    "Chevrolet Celta": ["Iniciais", "Chevrolet Celta", 170, 78, 13, "./img/iniciais/chevroletcelta.png"],
+    "Chevrolet Corsa": ["Iniciais", "Chevrolet Corsa", 175, 82, 11, "./img/iniciais/chevroletcorsa.png"],
+    "Fiat Palio": ["Iniciais", "Fiat Palio", 165, 76, 14, "./img/iniciais/fiatpalio.png"],
+    "Volkswagen Fox": ["Iniciais", "Volkswagen Fox", 170, 79, 13, "./img/iniciais/volkswagenfox.png"],
+    "Fiat Siena": ["Iniciais", "Fiat Siena", 160, 75, 15, "./img/iniciais/fiatsiena.png"],
+    "Ford Fiesta": ["Iniciais", "Ford Fiesta", 180, 83, 12, "./img/iniciais/fordfiesta.png"],
+    "Ford Ka": ["Iniciais", "Ford Ka", 170, 77, 13, "./img/iniciais/fordka.png"],
+    "HB20": ["Iniciais", "HB20", 175, 80, 12, "./img/iniciais/hb20.png"],
+    "Chevrolet Onix": ["Iniciais", "Chevrolet Onix", 180, 85, 11, "./img/iniciais/chevroletonix.png"],
+    "Peugeot 208": ["Iniciais", "Peugeot 208", 170, 82, 13, "./img/iniciais/peugeot208.png"],
+    "Renault Sandero": ["Iniciais", "Renault Sandero", 165, 79, 14, "./img/iniciais/renaultsandero.png"],
+    "Honda Fit": ["Iniciais", "Honda Fit", 160, 76, 15, "./img/iniciais/fiatsiena.png"],
+    "Volkswagen Fusca": ["Iniciais", "Volkswagen Fusca", 155, 74, 15, "./img/iniciais/volkswagenfusca.png"],
+    "Toyota Yaris": ["Iniciais", "Toyota Yaris", 170, 78, 13, "./img/iniciais/toyotayaris.png"],
+    "Ford Belina": ["Iniciais", "Ford Belina", 150, 72, 15, "./img/iniciais/fordbelina.png"],
+    "Nissan March": ["Iniciais", "Nissan March", 165, 77, 14, "./img/iniciais/nissanmarch.png"],
+    "Renault Clio": ["Iniciais", "Renault Clio", 160, 75, 15, "./img/iniciais/renaultclio.png"],
+    "Fiat Punto": ["Iniciais", "Fiat Punto", 175, 80, 12, "./img/iniciais/fiatpunto.png"]
+}
 
-    frame_conteudo = ctk.CTkFrame(garagem_janela)
-    frame_conteudo.grid(row=1, column=1)
-
-    indice_linha_atual = 0
-    garagem_pessoal.atualizar_carro(frame_conteudo, carros, indice_linha_atual)
-
-    def proxima_linha():
-        nonlocal indice_linha_atual
-        if indice_linha_atual < len(carros) - 1:
-            indice_linha_atual += 1
-            garagem_pessoal.atualizar_carro(frame_conteudo, carros, indice_linha_atual)
-            # Atualiza o carro atual após navegar para o próximo
-            global carro_atual
-            carro_atual = carros[indice_linha_atual]
-
-    def linha_anterior():
-        nonlocal indice_linha_atual
-        if indice_linha_atual > 0:
-            indice_linha_atual -= 1
-            garagem_pessoal.atualizar_carro(frame_conteudo, carros, indice_linha_atual)
-            # Atualiza o carro atual após navegar para o anterior
-            global carro_atual
-            carro_atual = carros[indice_linha_atual]
-
-    botao_proximo = menu_principal.botao_padrao(garagem_janela, 'PRÓXIMO', cor_2, cor_3, proxima_linha)
-    botao_proximo.grid(row=1, column=2)
-    botao_anterior = menu_principal.botao_padrao(garagem_janela, 'ANTERIOR', cor_2, cor_3, linha_anterior)
-    botao_anterior.grid(row=1, column=0)
-    botao_voltar = menu_principal.botao_padrao(garagem_janela, 'VOLTAR', cor_1, cor_7, voltar_garagem)
-    botao_voltar.grid(row=3, column=0, pady=20)
-    botao_selecionar = menu_principal.botao_padrao(garagem_janela, 'SELECIONAR', cor_2, cor_3, lambda: selecionar_carro(carro_atual))
-    botao_selecionar.grid(row=2, column=0)
-
-    garagem_janela.mainloop()
-
-def selecionar_carro(carro_atual):
+def selecionar_carro(nome_user, nome_carro):
+    # Verificar se o carro está disponível no dicionário carros_disponiveis
+    if nome_carro not in carros_disponiveis:
+        print(f"Carro '{nome_carro}' não disponível.")
+        return
+    
+    # Carregar os dados dos jogadores do arquivo JSON
     try:
         with open('dados_jogadores.json', 'r') as arquivo_json:
             dados = json.load(arquivo_json)
@@ -241,18 +236,68 @@ def selecionar_carro(carro_atual):
     
     jogador_encontrado = False
     
+    # Iterar sobre os jogadores para encontrar o jogador específico
     for jogador_atual in dados:
         if jogador_atual["nome"] == nome_user:
-            jogador_atual["carro_selecionado"] = carro_atual
+            jogador_atual["carro_selecionado"] = carros_disponiveis[nome_carro]  # Usar carros_disponiveis[nome_carro] como valor
             jogador_encontrado = True
-            break
+            break  # Encerrar o loop após encontrar o jogador
     
+    # Verificar se o jogador foi encontrado
     if not jogador_encontrado:
         print(f"Jogador '{nome_user}' não encontrado.")
         return
     
+    # Salvar os dados atualizados de volta no arquivo JSON
     with open('dados_jogadores.json', 'w') as arquivo_json:
         json.dump(dados, arquivo_json, indent=4)
+
+def janela_garagem(janela):
+    global garagem_janela, carro_atual
+    menu_principal.fechar_janela(janela)
+    garagem_janela = ctk.CTk()
+    garagem_janela.title("Garagem")
+    carros = verificar_dono_garagem(garagem_pessoal.ler_json("dados_jogadores.json"))
+
+    # Frame para o conteúdo do carro
+    frame_conteudo = ctk.CTkFrame(garagem_janela)
+    frame_conteudo.grid(row=1, column=1)
+
+    # Índice da linha atual
+    indice_linha_atual = 0
+
+    # Mostrar a primeira linha do arquivo
+    garagem_pessoal.atualizar_carro(frame_conteudo, carros, indice_linha_atual)
+
+    def proxima_linha():
+        nonlocal indice_linha_atual
+        if indice_linha_atual < len(carros) - 1:
+            indice_linha_atual += 1
+            garagem_pessoal.atualizar_carro(frame_conteudo, carros, indice_linha_atual)
+
+    def linha_anterior():
+        nonlocal indice_linha_atual
+        if indice_linha_atual > 0:
+            indice_linha_atual -= 1
+            garagem_pessoal.atualizar_carro(frame_conteudo, carros, indice_linha_atual)
+            
+    botao_proximo = menu_principal.botao_padrao(garagem_janela, 'PRÓXIMO', cor_2, cor_3, proxima_linha)
+    botao_proximo.grid(row=1, column=2)
+
+    botao_anterior = menu_principal.botao_padrao(garagem_janela, 'ANTERIOR', cor_2, cor_3, linha_anterior)
+    botao_anterior.grid(row=1, column=0)
+
+    botao_voltar = menu_principal.botao_padrao(garagem_janela, 'VOLTAR', cor_1, cor_7, voltar_garagem)
+    botao_voltar.grid(row=3, column=0, pady=20)
+
+    # Adicionando lambda para passar parâmetros corretamente
+    botao_selecionar = menu_principal.botao_padrao(garagem_janela, 'SELECIONAR', cor_2, cor_3, 
+                                                   lambda: selecionar_carro(nome_user, carros[indice_linha_atual][1]))
+    botao_selecionar.grid(row=2, column=0)
+
+    carro_atual = carros[indice_linha_atual]
+
+    garagem_janela.mainloop()
 
 
 def voltar_garagem():
@@ -277,20 +322,5 @@ def adicionar_car_garage(arquivo,carro):
                 jogador_atual["carros_na_garagem"].append(carro)
                 break  # Encerrar o loop após encontrar o jogador
     
-    cadastro.escrever_json(dados,arquivo)
-
-def dinheiro_atual(arquivo):
-
-    with open(arquivo, 'r') as arquivo_json:
-        dados = json.load(arquivo_json)
-    
-    # Iterar sobre os jogadores para encontrar o jogador específico
-    for jogador_atual in dados:
-        if jogador_atual["nome"] == nome_user:
-                dinheiro=jogador_atual["dinheiro_no_banco"]
-                break  # Encerrar o loop após encontrar o jogador
-    
     with open(arquivo, 'w') as arquivo_json:
         json.dump(dados, arquivo_json)
-
-    return dinheiro

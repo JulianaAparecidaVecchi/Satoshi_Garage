@@ -19,16 +19,18 @@ def aceitar_corrida(v1,a1,p1,v2,a2,p2,carro_ganhado,frame_fechar):
         #Adicionar carro ganhado na garagem
         login.adicionar_car_garage('dados_jogadores.json',carro_ganhado)
         #DInheiro ganho
-        messagebox.showinfo("VITÓRIA","VOCÊ VENCEU!!")
+        messagebox.showinfo("VITÓRIA","VOCÊ VENCEU!!PARABÉNS\nVOCÊ GANHOU O CARRO ADVERSÁRIO\nE GANHOU O DINHEIRO DA CORRIDA")
         voltar_mapa(frame_fechar)
     
         
         
     elif mediaPonderada(v1,a1,p1) < mediaPonderada(v2,a2,p2):
-        messagebox.showinfo("DEROTA","VOCÊ PERDEU")
+        messagebox.showinfo("DEROTA","VOCÊ PERDEU\nINFELIZMENTE VOCÊ PERDEU O DINHEIRO DA CORRIDA")
         #DInheiro descontado
+        voltar_mapa(frame_fechar)
     else:
         messagebox.showinfo("EMPATE","Houve um empate!")
+        voltar_mapa(frame_fechar)
 
 def voltar_mapa(frame):
         menu_principal.janela_jogo_inicio(frame)

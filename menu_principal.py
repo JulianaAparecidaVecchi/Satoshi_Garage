@@ -61,7 +61,7 @@ def geral_frame(master):
     titulo_mapa = ctk.CTkLabel(master=frame_geral, text='MAPAS', font=('Arial', 15,'bold'))
     titulo_mapa.grid(row=1, column=2)
 
-    dinheiro = ctk.CTkLabel(master=frame_geral, text='R$', font=('Arial', 15))
+    dinheiro = ctk.CTkLabel(master=frame_geral, text=f"R$:{login.dinheiro_atual("dados_jogadores.json")}", font=('Arial', 15))
     dinheiro.grid(row=1, column=3)
 
     mapa_selecionado = tk.IntVar()
@@ -120,6 +120,7 @@ def janela_primeiro_login(janela, nome_jogador):
     botao_sairr.grid(row=4, column=1, pady=20)
     janela_l1.mainloop()
 
+#Cria um frame para exibir o carro
 def card_carro(janela, lista):
     card = ctk.CTkFrame(master=janela, bg_color=cor_5)
     img = converter_img(lista[5])  # Converter a imagem usando o endereço fornecido
@@ -141,8 +142,7 @@ def card_carro(janela, lista):
     
     card.grid(row=1, column=1, columnspan=2)
     return card
-
-    
+  
 def botao_padrao(janela,texto,cor,cor_hover,acao):
     botao = ctk.CTkButton(janela, text=texto, width=100, height=50, fg_color=cor,hover_color=cor_hover,command=acao)
     return botao

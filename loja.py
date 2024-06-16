@@ -2,6 +2,7 @@ import customtkinter as ctk
 import menu_principal
 import tkinter as tk
 import tkinter.messagebox as tkmsgbox
+import login
 
 cor_5 = '#d9c6c6'
 carros = [
@@ -35,7 +36,6 @@ carros = [
     ['Profissionais', 'Tesla Model S', 320, 1000, 60, './img/profissionais/teslamodelS.png', 1200000],
 ]
 
-dinheiro_jogador = 20000
 
 # Função para mostrar o carro atual e atualizar a lista
 def atualizar_carro(frame, lista, indice):
@@ -56,7 +56,7 @@ def janela_garagem(janela):
     garagem_janela.title("Loja")
 
     #Rótulo para exibir o dinheiro do jogador
-    label_dinheiro = ctk.CTkLabel(garagem_janela, text=f"Dinheiro do jogador: R$ {dinheiro_jogador}", font=("Arial", 13))
+    label_dinheiro = ctk.CTkLabel(garagem_janela, text=f"Dinheiro do jogador: R$ {login.dinheiro_atual('dados_jogadores.json')}", font=("Arial", 13))
     label_dinheiro.grid(row=1, column=3, sticky="ne", padx=10, pady=10)
 
     # Frame para o conteúdo do carro

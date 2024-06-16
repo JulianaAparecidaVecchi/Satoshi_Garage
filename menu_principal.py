@@ -1,7 +1,6 @@
 import tkinter as tk
 import customtkinter as ctk
 from PIL import Image, ImageTk
-import teste_corrida
 import random
 import corrida
 import garagem_pessoal

@@ -1,6 +1,7 @@
 import menu_principal
 import tkinter as tk
 from tkinter import messagebox
+import login
 import customtkinter as ctk
 import random
 
@@ -13,14 +14,24 @@ cor_5 = '#d9c6c6'
 cor_6 = "#EA2828"
 cor_7 = '#FC3441'
 
-def aceitar_corrida(v1,a1,p1,v2,a2,p2):
+def aceitar_corrida(v1,a1,p1,v2,a2,p2,carro_ganhado,frame_fechar):
     if mediaPonderada(v1,a1,p1) > mediaPonderada(v2,a2,p2):
+        #Adicionar carro ganhado na garagem
+        login.adicionar_car_garage('dados_jogadores.json',carro_ganhado)
+        #DInheiro ganho
         messagebox.showinfo("VITÓRIA","VOCÊ VENCEU!!")
+        voltar_mapa(frame_fechar)
+    
+        
+        
     elif mediaPonderada(v1,a1,p1) < mediaPonderada(v2,a2,p2):
         messagebox.showinfo("DEROTA","VOCÊ PERDEU")
+        #DInheiro descontado
     else:
         messagebox.showinfo("EMPATE","Houve um empate!")
 
+def voltar_mapa(frame):
+        menu_principal.janela_jogo_inicio(frame)
 
 def mediaPonderada(v,a,p):
     mediaP=((v*5)+(a*3)+(p*2)) / 10
@@ -50,3 +61,4 @@ def sortear_carro_mapa(arquivo, num1, num2):
     carro_sorteado = carros[carro_sorteado_index - num1].strip().split(',')
     
     return carro_sorteado
+

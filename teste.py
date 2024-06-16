@@ -20,7 +20,6 @@ def sortear_carro_mapa(arquivo, num1, num2):
     carro_sorteado = carros[carro_sorteado_index - num1].strip().split(',')
     
     return carro_sorteado
-
 # Exemplo de uso
 arquivo = 'carros.txt'  # Substitua pelo caminho correto do seu arquivo
 num1 = 1  # Primeiro número de carro no arquivo

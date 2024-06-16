@@ -1,5 +1,6 @@
 import customtkinter as ctk
 import menu_principal
+import random
 import login
 import json
 
@@ -12,6 +13,13 @@ cor_4 = '#7c7c7c'
 cor_5 = '#d9c6c6'
 cor_6 = "#EA2828"
 cor_7 = '#FC3441'
+#Sorteia um carro inicial
+def sortear_carro_inicial(arquivo, num1, num2):
+    with open(arquivo, 'r') as arquivo:
+        carros = arquivo.readlines()  
+    numero_sorteado = random.randint(num1, num2)
+    carro_sorteado = carros[numero_sorteado].strip().split(',')  # Convertendo a linha em uma lista
+    return carro_sorteado
 
 def ler_json(arquivo):
     with open(arquivo, 'r') as arquivo_aberto:
@@ -55,4 +63,19 @@ def card_carro_garagem(janela, lista):
     card.grid(row=1, column=1)
     return card
 
+def adicionar_car_inicial_garage(arquivo,carro,nome_jogador):
+
+    with open(arquivo, 'r') as arquivo_json:
+        dados = json.load(arquivo_json)
+    
+        # Iterar sobre os jogadores para encontrar o jogador específico
+    for jogador_atual in dados:
+        if jogador_atual["nome"] == nome_jogador:
+            # Adicionar o carro sorteado à lista de carros na garagem do jogador
+            jogador_atual["carros_na_garagem"].append(carro)
+            jogador_atual["carro_selecionado"]=carro
+            break  # Encerrar o loop após encontrar o jogador
+    
+    with open(arquivo, 'w') as arquivo_json:
+        json.dump(dados, arquivo_json)
 

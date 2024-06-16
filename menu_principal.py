@@ -111,10 +111,10 @@ def janela_primeiro_login(janela, nome_jogador):
     texto_parabens.grid(row=1, column=1, columnspan=2, padx=10, pady=10)
     texto_boasvindas = ctk.CTkLabel(janela_l1, text='Bem-vindo(a) à sua jornada veloz! Prepare-se para a adrenalina pura enquanto você conquista as estradas com o seu novo carro. Clique em Continuar e embarque em uma aventura cheia de velocidade e emoção!', font=('Arial', 16))
     texto_boasvindas.grid(row=2, column=1, columnspan=2, padx=10, pady=10)
-    carro_sorteado = sortear_carro_inicial('carros.txt', 0, 18)
+    carro_sorteado = garagem_pessoal.sortear_carro_inicial('carros.txt', 0, 18)
     cartao_carro = card_carro(janela_l1, carro_sorteado)
     cartao_carro.grid(row=3, column=1)
-    adicionar_car_inicial_garage('dados_jogadores.json', carro_sorteado, nome_jogador)
+    garagem_pessoal.adicionar_car_inicial_garage('dados_jogadores.json', carro_sorteado, nome_jogador)
     botao_continuar = ctk.CTkButton(master=janela_l1, text='CONTINUAR', width=100, height=50, font=('Arial', 15), fg_color=cor_2, hover_color=cor_3, text_color='#FFFFFF', command=lambda: janela_jogo_inicio(janela_l1))
     botao_continuar.grid(row=4, column=2, pady=20)
     botao_sairr = ctk.CTkButton(master=janela_l1, text='SAIR', width=100, height=50, font=('Arial', 15), fg_color=cor_6, hover_color=cor_7, text_color='#FFFFFF', command=lambda: fechar_janela(janela_l1))
@@ -143,28 +143,6 @@ def card_carro(janela, lista):
     card.grid(row=1, column=1, columnspan=2)
     return card
 
-def sortear_carro_inicial(arquivo, num1, num2):
-    with open(arquivo, 'r') as arquivo:
-        carros = arquivo.readlines()  
-    numero_sorteado = random.randint(num1, num2)
-    carro_sorteado = carros[numero_sorteado].strip().split(',')  # Convertendo a linha em uma lista
-    return carro_sorteado
-
-def adicionar_car_inicial_garage(arquivo,carro,nome_jogador):
-
-    with open(arquivo, 'r') as arquivo_json:
-        dados = json.load(arquivo_json)
-    
-        # Iterar sobre os jogadores para encontrar o jogador específico
-    for jogador_atual in dados:
-        if jogador_atual["nome"] == nome_jogador:
-            # Adicionar o carro sorteado à lista de carros na garagem do jogador
-            jogador_atual["carros_na_garagem"].append(carro)
-            jogador_atual["carro_selecionado"]=carro
-            break  # Encerrar o loop após encontrar o jogador
-    
-    with open(arquivo, 'w') as arquivo_json:
-        json.dump(dados, arquivo_json)
     
 def botao_padrao(janela,texto,cor,cor_hover,acao):
     botao = ctk.CTkButton(janela, text=texto, width=100, height=50, fg_color=cor,hover_color=cor_hover,command=acao)
@@ -190,7 +168,7 @@ def janela_cidade(janela):
     #Convertendo para int
     v1,a1,p1=corrida.passar_int(carro_selecionado,2),corrida.passar_int(carro_selecionado,3),corrida.passar_int(carro_selecionado,4)
     v2,a2,p2=corrida.passar_int(carro_st,2),corrida.passar_int(carro_st,3),corrida.passar_int(carro_st,4)
-    botao_aceitar=botao_padrao(janela_mapa,"ACEITAR CORRIDA",cor_8, cor_9,lambda:corrida.aceitar_corrida(v1,a1,p1,v2,a2,p2))
+    botao_aceitar=botao_padrao(janela_mapa,"ACEITAR CORRIDA",cor_8, cor_9,lambda:corrida.aceitar_corrida(v1,a1,p1,v2,a2,p2,carro_st,janela_mapa))
     botao_aceitar.grid(row=1,column=3)
     botao_voltar=botao_padrao(janela_mapa,"RECUSAR CORRIDA",cor_1, cor_7,voltar_garagem)
     botao_voltar.grid(row=1,column=1)

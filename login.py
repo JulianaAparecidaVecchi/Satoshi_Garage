@@ -279,6 +279,23 @@ def chamada_carro_atual():
     carro=carro_atual
     return carro
 
+def adicionar_car_garage(arquivo,carro):
+
+    with open(arquivo, 'r') as arquivo_json:
+        dados = json.load(arquivo_json)
+    
+        # Iterar sobre os jogadores para encontrar o jogador específico
+    for jogador_atual in dados:
+        if jogador_atual["nome"] == nome_user:
+            if carro in jogador_atual["carros_na_garagem"]:
+                print('Só ganha o dinheiro')
+            else:
+                # Adicionar o carro que o jogador ganhou na garagem
+                jogador_atual["carros_na_garagem"].append(carro)
+                break  # Encerrar o loop após encontrar o jogador
+    
+    with open(arquivo, 'w') as arquivo_json:
+        json.dump(dados, arquivo_json)
 
 
 

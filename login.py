@@ -19,7 +19,7 @@ cor_botao_hover = '#FC3441'
 dados_arquivo = 'dados_jogadores.json'
 
 
-
+#Verifica se jogador já existe caso exista avisa, caso não exista registra jogador
 def salvar_dados(jogador, filename):
     try:
         with open(filename, 'r') as arquivo:
@@ -49,6 +49,7 @@ def incrementar_primeiro_login(nome_usuario, filename):
             return True  # Indica que o contador foi incrementado com sucesso
     return False  # Indica que não foi encontrado nenhum jogador com o nome de usuário
 
+#Realiza login
 def login_usuario():
     global nome_user
     nomeus = input_nome.get()  # Obtém o nome do usuário
@@ -73,7 +74,7 @@ def login_usuario():
     if not login_sucesso:
         messagebox.showerror("Erro", "Nome do usuário ou senha incorretos.")
 
-#
+#Cria a janela login
 def janela_login():
     global frame_login, login_janela, input_nome, input_senha
     login_janela= ctk.CTk()
@@ -109,6 +110,7 @@ def janela_login():
 
     login_janela.mainloop()
 
+#Cria o Frame de cadastro
 def login_cadastrar():
     global input_nome_cadastro, input_senha_cadastro, frame_cadastro
 
@@ -142,6 +144,7 @@ def login_cadastrar():
                                   fg_color=cor_botao, hover_color=cor_botao_hover, command=voltar_login)
     botao_voltar.grid(column=1, row=7, pady=10)
 
+#Realiza cadastro
 def realizar_cadastro():
     global nome_unico
     nome = input_nome_cadastro.get()
@@ -176,118 +179,6 @@ def voltar_login():
     frame_cadastro.grid_forget()
     frame_login.grid(column=2, row=1, padx=20, pady=20)
 
-def verificar_dono_garagem(json):
-    for jogador_atual in json:
-        if jogador_atual["nome"] == nome_user:
-            carros=jogador_atual["carros_na_garagem"]
-            break  
-    return carros
 
-def verificar_dono_carro_selecionado(json):
-    for jogador_atual in json:
-        if jogador_atual["nome"] == nome_user:
-            carro_selecionado=jogador_atual["carro_selecionado"]
-            break  
-    return carro_selecionado
 
-def janela_garagem(janela):
-    global garagem_janela, carro_atual
-    menu_principal.fechar_janela(janela)
-    garagem_janela = ctk.CTk()
-    garagem_janela.title("Garagem")
-    carros = verificar_dono_garagem(garagem_pessoal.ler_json("dados_jogadores.json"))
 
-    frame_conteudo = ctk.CTkFrame(garagem_janela)
-    frame_conteudo.grid(row=1, column=1)
-
-    indice_linha_atual = 0
-    garagem_pessoal.atualizar_carro(frame_conteudo, carros, indice_linha_atual)
-    carro_atual = carros[indice_linha_atual]
-    def proxima_linha():
-        nonlocal indice_linha_atual
-        if indice_linha_atual < len(carros) - 1:
-            indice_linha_atual += 1
-            garagem_pessoal.atualizar_carro(frame_conteudo, carros, indice_linha_atual)
-            # Atualiza o carro atual após navegar para o próximo
-            global carro_atual
-            carro_atual = carros[indice_linha_atual]
-
-    def linha_anterior():
-        nonlocal indice_linha_atual
-        if indice_linha_atual > 0:
-            indice_linha_atual -= 1
-            garagem_pessoal.atualizar_carro(frame_conteudo, carros, indice_linha_atual)
-            # Atualiza o carro atual após navegar para o anterior
-            global carro_atual
-            carro_atual = carros[indice_linha_atual]
-
-    botao_proximo = menu_principal.botao_padrao(garagem_janela, 'PRÓXIMO', cor_2, cor_3, proxima_linha)
-    botao_proximo.grid(row=1, column=2)
-    botao_anterior = menu_principal.botao_padrao(garagem_janela, 'ANTERIOR', cor_2, cor_3, linha_anterior)
-    botao_anterior.grid(row=1, column=0)
-    botao_voltar = menu_principal.botao_padrao(garagem_janela, 'VOLTAR', cor_1, cor_7, voltar_garagem)
-    botao_voltar.grid(row=3, column=0, pady=20)
-    botao_selecionar = menu_principal.botao_padrao(garagem_janela, 'SELECIONAR', cor_2, cor_3, lambda: selecionar_carro(carro_atual))
-    botao_selecionar.grid(row=2, column=0)
-
-    garagem_janela.mainloop()
-
-def selecionar_carro(carro_atual):
-    try:
-        with open('dados_jogadores.json', 'r') as arquivo_json:
-            dados = json.load(arquivo_json)
-    except FileNotFoundError:
-        print("Arquivo 'dados_jogadores.json' não encontrado.")
-        return
-    
-    jogador_encontrado = False
-    
-    for jogador_atual in dados:
-        if jogador_atual["nome"] == nome_user:
-            jogador_atual["carro_selecionado"] = carro_atual
-            jogador_encontrado = True
-            break
-    
-    if not jogador_encontrado:
-        print(f"Jogador '{nome_user}' não encontrado.")
-        return
-    
-    with open('dados_jogadores.json', 'w') as arquivo_json:
-        json.dump(dados, arquivo_json, indent=4)
-
-def voltar_garagem():
-    menu_principal.janela_jogo_inicio(garagem_janela)
-
-def chamada_carro_atual():
-    carro=carro_atual
-    return carro
-
-def adicionar_car_garage(arquivo,carro):
-
-    with open(arquivo, 'r') as arquivo_json:
-        dados = json.load(arquivo_json)
-    
-        # Iterar sobre os jogadores para encontrar o jogador específico
-    for jogador_atual in dados:
-        if jogador_atual["nome"] == nome_user:
-            if carro in jogador_atual["carros_na_garagem"]:
-                print('Só ganha o dinheiro')
-            else:
-                # Adicionar o carro que o jogador ganhou na garagem
-                jogador_atual["carros_na_garagem"].append(carro)
-                break  # Encerrar o loop após encontrar o jogador
-    
-    cadastro.escrever_json(dados,arquivo)
-
-def subtrair_dinheiro(arquivo,valor_carro):
-    with open(arquivo, 'r') as arquivo_json:
-        dados = json.load(arquivo_json)
-    
-        # Iterar sobre os jogadores para encontrar o jogador específico
-    for jogador_atual in dados:
-        if jogador_atual["nome"] == nome_user:
-            # Adicionar o carro sorteado à lista de carros na garagem do jogador
-            jogador_atual["dinheiro_no_banco"]=jogador_atual["dinheiro_no_banco"] - valor_carro
-            break  # Encerrar o loop após encontrar o jogador
-    
-    cadastro.escrever_json(dados,arquivo)

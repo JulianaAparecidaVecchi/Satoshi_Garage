@@ -1,17 +1,17 @@
 import customtkinter as ctk
-import menu_principal
 import tkinter as tk
 import tkinter.messagebox as tkmsgbox
 import login
+import menu_principal
 import garagem_pessoal
+import cadastro
 import dinheiro
 
-
-cor_5 = '#d9c6c6'
+# Definindo a lista de carros
 carros = [
     ['Iniciais', 'Volkswagen Gol', 180, 80, 12, './img/iniciais/volkswagengol.png', 16000],
-    ['Iniciais', 'Chevrolet Celta', 170, 78, 13, './img/iniciais/chevroletcelta.png',14000],
-    ['Iniciais', 'Chevrolet Corsa', 175, 82, 11, './img/iniciais/chevroletcorsa.png',18000],
+    ['Iniciais', 'Chevrolet Celta', 170, 78, 13, './img/iniciais/chevroletcelta.png', 14000],
+    ['Iniciais', 'Chevrolet Corsa', 175, 82, 11, './img/iniciais/chevroletcorsa.png', 18000],
     ["Iniciais", "Fiat Palio", 165, 76, 14, './img/iniciais/fiatpalio.png', 13000],
     ["Iniciais", "Volkswagen Fox", 170, 79, 13, './img/iniciais/volkswagenfox.png', 14000],
     ["Iniciais", "HB20", 175, 80, 12, './img/iniciais/hb20.png', 14000],
@@ -35,26 +35,24 @@ carros = [
     ['Profissionais', 'Tesla Model S', 320, 1000, 60, './img/profissionais/teslamodelS.png', 1200000],
 ]
 
-
-# Função para mostrar o carro atual e atualizar a lista
+# Função para atualizar o carro exibido no frame
 def atualizar_carro(frame, lista, indice):
-    # Limpar o frame antes de adicionar a linha
+    # Limpar o frame antes de adicionar o novo carro
     for widget in frame.winfo_children():
         widget.destroy()
 
-    # Exibir a linha no frame
+    # Exibir o carro atual no frame
     if 0 <= indice < len(lista):
-        cartao_carro = menu_principal.card_carro(frame, lista[indice])
+        cartao_carro = menu_principal.card_carro(frame, lista[indice])  # Supondo que menu_principal.card_carro() seja definido em outro lugar
         cartao_carro.grid(row=0, column=0)
 
-# Função para a janela da garagem
-def janela_garagem(janela):
-    global garagem_janela 
-    menu_principal.fechar_janela(janela)
+# Função para exibir a janela da loja de carros
+def janela_loja(janela):
+    menu_principal.fechar_janela(janela)  # Supondo que menu_principal.fechar_janela() seja definido em outro lugar
     garagem_janela = ctk.CTk()
     garagem_janela.title("Loja")
 
-    #Rótulo para exibir o dinheiro do jogador
+    # Rótulo para exibir o dinheiro do jogador
     label_dinheiro = ctk.CTkLabel(garagem_janela, text=f"Dinheiro do jogador: R$ {dinheiro.dinheiro_atual('dados_jogadores.json')}", font=("Arial", 13))
     label_dinheiro.grid(row=0, column=3, sticky="ne", padx=10, pady=10)
 
@@ -62,47 +60,40 @@ def janela_garagem(janela):
     frame_conteudo = ctk.CTkFrame(garagem_janela)
     frame_conteudo.grid(row=1, column=0, columnspan=3)
 
-    # Índice da linha atual
-    indice_linha_atual = 0
+    # Índice do carro atual na lista
+    indice_carro_atual = 0
+    atualizar_carro(frame_conteudo, carros, indice_carro_atual)
 
-    # Mostrar a primeira linha do arquivo
-    atualizar_carro(frame_conteudo, carros, indice_linha_atual)
-    carro_comprado = carros[indice_linha_atual]
     def proxima_linha():
-        nonlocal indice_linha_atual
-        if indice_linha_atual < len(carros) - 1:
-                        indice_linha_atual += 1
-                        atualizar_carro(frame_conteudo, carros, indice_linha_atual)
-                        global carro_comprado
-                        carro_comprado = carros[indice_linha_atual]
-                   
+        nonlocal indice_carro_atual
+        if indice_carro_atual < len(carros) - 1:
+            indice_carro_atual += 1
+            atualizar_carro(frame_conteudo, carros, indice_carro_atual)
 
     def linha_anterior():
-        nonlocal indice_linha_atual
-        if indice_linha_atual > 0:
-            indice_linha_atual -= 1
-            atualizar_carro(frame_conteudo, carros, indice_linha_atual)
-            global carro_comprado
-            carro_comprado = carros[indice_linha_atual]
+        nonlocal indice_carro_atual
+        if indice_carro_atual > 0:
+            indice_carro_atual -= 1
+            atualizar_carro(frame_conteudo, carros, indice_carro_atual)
+
     def exibir_valor_carro():
-    # Obtém o valor do carro atual
-        valor_do_carro = carros[indice_linha_atual][-1]  # O valor do carro está na última posição da sublista do carro atual
-        
-        # Cria uma janela para exibir o valor do carro
+        # Obter o valor do carro atual
+        valor_do_carro = carros[indice_carro_atual][6]  # Valor do carro está na última posição da sublista do carro atual
+
+        # Criar uma janela para exibir o valor do carro
         janela_valor_carro = tk.Toplevel(garagem_janela)
-        
-        # Cria um rótulo na janela para exibir o valor do carro
         label_valor_carro = tk.Label(janela_valor_carro, text=f"Valor do carro: R$ {valor_do_carro}")
         label_valor_carro.pack()
-        
-        # Cria um botão "Comprar" na janela para comprar o carro
-        botao_comprar = tk.Button(janela_valor_carro, text="Comprar", command=lambda: comprar_carro(valor_do_carro,carro_comprado))
+
+        # Botão "Comprar" para comprar o carro
+        botao_comprar = tk.Button(janela_valor_carro, text="Comprar", command=lambda: comprar_carro(valor_do_carro, carros[indice_carro_atual]))
         botao_comprar.pack()
-        # Cria um botão "Voltar" na janela para fechar a janela
+
+        # Botão "Voltar" para fechar a janela
         botao_voltar = tk.Button(janela_valor_carro, text="Voltar", command=janela_valor_carro.destroy)
         botao_voltar.pack()
 
-    # Frame para os botões
+    # Botões para navegação e compra
     botao_proximo = ctk.CTkButton(garagem_janela, text='PRÓXIMO', width=100, height=50, command=proxima_linha)
     botao_proximo.grid(row=2, column=3)
 
@@ -111,7 +102,8 @@ def janela_garagem(janela):
 
     botao_comprar = ctk.CTkButton(garagem_janela, text='COMPRAR', width=100, height=50, command=exibir_valor_carro)
     botao_comprar.grid(row=2, column=2)
-    botao_sair = ctk.CTkButton(garagem_janela, text='SAIR DA LOJA', width=100, height=50, command=voltar_loja)
+
+    botao_sair = ctk.CTkButton(garagem_janela, text='SAIR DA LOJA', width=100, height=50, command=lambda: menu_principal.logica_voltar(garagem_janela))
     botao_sair.grid(row=2, column=0)
 
     garagem_janela.mainloop()
@@ -120,28 +112,22 @@ def comprar_carro(valor_do_carro, carro_comprado):
     if dinheiro.dinheiro_atual('dados_jogadores.json') >= valor_do_carro:
         dados_jogadores = "dados_jogadores.json"  # Arquivo de dados dos jogadores
 
-        # Verifica se o jogador tem o carro já na garagem
+        # Verifica se o jogador já possui o carro na garagem
         jogador_encontrado = False
-        for jogador_atual in garagem_pessoal.ler_json(dados_jogadores):
+        for jogador_atual in cadastro.ler_json(dados_jogadores):
             if jogador_atual["nome"] == login.nome_user:
                 if carro_comprado in jogador_atual["carros_na_garagem"]:
                     tkmsgbox.showinfo("Aviso", f"Você já possui o carro {carro_comprado[1]} na sua garagem.")
                     break
-        
                 else:
-                    # Se o jogador não tem o carro, realiza a compra e atualiza os dados
-                    login.subtrair_dinheiro(dados_jogadores, valor_do_carro)
-                    login.adicionar_car_garage(dados_jogadores, carro_comprado)
+                    # Realiza a compra do carro e atualiza os dados do jogador
+                    dinheiro.subtrair_dinheiro(dados_jogadores, valor_do_carro)
+                    garagem_pessoal.adicionar_car_garage(dados_jogadores, carro_comprado)
                     print(f"Carro comprado por R$ {valor_do_carro}. Dinheiro restante: R$ {dinheiro.dinheiro_atual(dados_jogadores)}.")
                     tkmsgbox.showinfo("Compra realizada", f"Carro comprado por R$ {valor_do_carro}. Dinheiro restante: R$ {dinheiro.dinheiro_atual(dados_jogadores)}. Carro adicionado na garagem!")
-    
+                    break
     else:
-        # Se o jogador não tiver dinheiro suficiente, exibe a mensagem de erro
+        # Exibe mensagem de erro se o jogador não tiver dinheiro suficiente
         tkmsgbox.showerror("Erro", "Dinheiro insuficiente.")
 
-def voltar_loja():
-    menu_principal.janela_jogo_inicio(garagem_janela)
-
-
-
-
+# A função janela_loja(janela) deve ser chamada de algum lugar para iniciar a interface da loja de carros

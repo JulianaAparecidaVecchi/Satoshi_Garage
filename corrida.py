@@ -1,8 +1,7 @@
 import menu_principal
-import tkinter as tk
 from tkinter import messagebox
 import login
-import json
+import garagem_pessoal
 import cadastro
 import customtkinter as ctk
 import random
@@ -19,7 +18,7 @@ cor_7 = '#FC3441'
 def aceitar_corrida(v1,a1,p1,v2,a2,p2,carro_ganhado,frame_fechar):
     if mediaPonderada(v1,a1,p1) > mediaPonderada(v2,a2,p2):
         #Adicionar carro ganhado na garagem
-        login.adicionar_car_garage('dados_jogadores.json',carro_ganhado)
+        garagem_pessoal.adicionar_car_garage('dados_jogadores.json',carro_ganhado)
         #DInheiro ganho
         ganhar_dinheiro('dados_jogadores.json',carro_ganhado)
         messagebox.showinfo("VITÓRIA","VOCÊ VENCEU!!PARABÉNS\nVOCÊ GANHOU O CARRO ADVERSÁRIO\nE GANHOU O DINHEIRO DA CORRIDA")
@@ -118,4 +117,24 @@ def perder_dinheiro( arquivo_json,carro_ganhado):
     # Escrever os dados atualizados de volta no arquivo JSON
     cadastro.escrever_json(dados, arquivo_json)
 
-
+def mapa_janela(janela,num1,num2):
+    global janela_mapa 
+    menu_principal.fechar_janela(janela)
+    janela_mapa = ctk.CTk()
+    janela_mapa.title('CIDADE')
+    janela_mapa.configure(bg='white')
+    janela_mapa.minsize(300, 650)
+    carro_selecionado=garagem_pessoal.verificar_dono_carro_selecionado(cadastro.ler_json("dados_jogadores.json"))
+    carro_jogador=menu_principal.card_carro(janela_mapa,carro_selecionado)
+    carro_jogador.grid(row=0,column=1)
+    carro_st=sortear_carro_mapa('carros.txt',num1,num2)
+    carro_sorteado=menu_principal.card_carro(janela_mapa,carro_st)
+    carro_sorteado.grid(row=0,column=3)
+    #Convertendo para int
+    v1,a1,p1=passar_int(carro_selecionado,2),passar_int(carro_selecionado,3),passar_int(carro_selecionado,4)
+    v2,a2,p2=passar_int(carro_st,2),passar_int(carro_st,3),passar_int(carro_st,4)
+    botao_aceitar=menu_principal.botao_padrao(janela_mapa,"ACEITAR CORRIDA",menu_principal.cor_8, menu_principal.cor_9,lambda:aceitar_corrida(v1,a1,p1,v2,a2,p2,carro_st,janela_mapa))
+    botao_aceitar.grid(row=1,column=3)
+    botao_voltar=menu_principal.botao_padrao(janela_mapa,"RECUSAR CORRIDA",cor_1, cor_7,lambda:menu_principal.logica_voltar(janela_mapa))
+    botao_voltar.grid(row=1,column=1)
+    janela_mapa.mainloop()

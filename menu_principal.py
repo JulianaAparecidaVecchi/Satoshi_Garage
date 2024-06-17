@@ -101,7 +101,7 @@ def upgrade():
 def fechar_janela(janela):
     janela.destroy()
 
-def janela_primeiro_login(janela, nome_jogador,num1,num2):
+def janela_primeiro_login(janela, nome_jogador):
     global carro_sorteado
     fechar_janela(janela,)
     janela_l1 = ctk.CTk()

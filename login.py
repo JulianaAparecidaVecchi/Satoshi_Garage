@@ -202,7 +202,7 @@ def janela_garagem(janela):
 
     indice_linha_atual = 0
     garagem_pessoal.atualizar_carro(frame_conteudo, carros, indice_linha_atual)
-
+    carro_atual = carros[indice_linha_atual]
     def proxima_linha():
         nonlocal indice_linha_atual
         if indice_linha_atual < len(carros) - 1:
@@ -254,7 +254,6 @@ def selecionar_carro(carro_atual):
     
     with open('dados_jogadores.json', 'w') as arquivo_json:
         json.dump(dados, arquivo_json, indent=4)
-
 
 def voltar_garagem():
     menu_principal.janela_jogo_inicio(garagem_janela)

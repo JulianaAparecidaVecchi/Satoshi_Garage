@@ -67,7 +67,7 @@ def janela_garagem(janela):
 
     # Mostrar a primeira linha do arquivo
     atualizar_carro(frame_conteudo, carros, indice_linha_atual)
-
+    carro_comprado = carros[indice_linha_atual]
     def proxima_linha():
         nonlocal indice_linha_atual
         if indice_linha_atual < len(carros) - 1:

@@ -58,27 +58,32 @@ def geral_frame(master):
     frame_geral = ctk.CTkFrame(master=master, fg_color=cor_5)
     frame_geral.grid(row=1, column=2)
 
-    titulo_mapa = ctk.CTkLabel(master=frame_geral, text='MAPAS', font=('Arial', 15,'bold'))
-    titulo_mapa.grid(row=1, column=2)
+    titulo_mapa = ctk.CTkLabel(master=frame_geral, text='MAPAS', font=('Arial', 25,'bold'))
+    titulo_mapa.grid(row=1, column=2,pady=20)
 
-    dinheiro_jogador = ctk.CTkLabel(master=frame_geral, text=f"R$:{dinheiro.dinheiro_atual("dados_jogadores.json")}", font=('Arial', 15))
-    dinheiro_jogador.grid(row=1, column=3)
+    caixa_dinheiro_jogador =ctk.CTkLabel(master=frame_geral,bg_color=cor_3,text="")
+    dinheiro_jogador=ctk.CTkLabel(master=caixa_dinheiro_jogador, text=f"R$:{dinheiro.dinheiro_atual("dados_jogadores.json")}", font=('Arial', 20),text_color='white',bg_color=cor_3)
+    dinheiro_jogador.grid(row=0,column=0,pady=5,padx=5)
+    caixa_dinheiro_jogador.grid(row=1, column=3,pady=20)
 
     mapa_selecionado = tk.IntVar()
 
-    mapa(frame_geral, 2, 1, converter_img('./img/icones/cidade.png'), mapa_selecionado, 1)
-    mapa(frame_geral, 2, 2, converter_img('./img/icones/campo.png'), mapa_selecionado, 2)
-    mapa(frame_geral, 2, 3, converter_img('./img/icones/deserto.png'), mapa_selecionado, 3)
+    nome_mapa(frame_geral,'CIDADE',2,1)
+    mapa(frame_geral, 3, 1, converter_img('./img/icones/cidade.png'), mapa_selecionado, 1)
+    nome_mapa(frame_geral,'CAMPO',2,2)
+    mapa(frame_geral, 3, 2, converter_img('./img/icones/campo.png'), mapa_selecionado, 2)
+    nome_mapa(frame_geral,'DESERTO',2,3)
+    mapa(frame_geral, 3, 3, converter_img('./img/icones/deserto.png'), mapa_selecionado, 3)
 
-    botao_jogar = ctk.CTkButton(master=frame_geral, text='JOGAR', width=100, height=50, font=('Arial', 15), fg_color=cor_2, hover_color=cor_3, text_color='#FFFFFF', command=lambda: iniciar_mapa(mapa_selecionado.get(),master))
-    botao_jogar.grid(row=3, column=1, padx=20, pady=20)
+    botao_jogar = ctk.CTkButton(master=frame_geral, text='JOGAR', width=150, height=80, font=('Arial', 20,'bold'), fg_color=cor_2, hover_color=cor_3, text_color='#FFFFFF', command=lambda: iniciar_mapa(mapa_selecionado.get(),master))
+    botao_jogar.grid(row=4, column=1, padx=20, pady=20)
 
     carro_selecionado = card_carro(frame_geral,garagem_pessoal.verificar_dono_carro_selecionado(cadastro.ler_json("dados_jogadores.json")))
-    carro_selecionado.grid(row=3, column=2, columnspan=2)
+    carro_selecionado.grid(row=4, column=2, columnspan=2)
 
 def mapa(master, row, column, img, variavel, valor):
     mapa_botao = ctk.CTkButton(master=master, image=img, fg_color=cor_5, hover_color=cor_0,text='', width=20, height=20, command=lambda: variavel.set(valor))
-    mapa_botao.grid(row=row, column=column, padx=10,pady=20)
+    mapa_botao.grid(row=row, column=column, padx=25,pady=(3,20))
 
 def iniciar_mapa(mapa,janela):
     if mapa == 1:
@@ -120,22 +125,23 @@ def janela_primeiro_login(janela, nome_jogador,num1,num2):
 #Cria um frame para exibir o carro
 def card_carro(janela, lista):
     card = ctk.CTkFrame(master=janela, bg_color=cor_5)
+    linha_nome = ctk.CTkLabel(master=card, text=lista[1], font=("Arial", 20, "bold"))
+    linha_nome.grid(row=1, column=1,pady=10)
     img = converter_img(lista[5])  # Converter a imagem usando o endereço fornecido
     if img:
         imagem = ctk.CTkLabel(master=card, image=img, text='')
-        imagem.grid(row=1, column=1)
+        imagem.grid(row=2, column=1)
     else:
         # Lidar com o caso em que a imagem não pode ser carregada
         print(f"Não foi possível carregar a imagem para {lista[1]}")
-    
-    linha_nome = ctk.CTkLabel(master=card, text=lista[1])
-    linha_nome.grid(row=2, column=1)
-    linha_velocidade = ctk.CTkLabel(master=card, text=f'Velocidade: {lista[2]}')
-    linha_velocidade.grid(row=3, column=1)
-    linha_potencia = ctk.CTkLabel(master=card, text=f'Potência: {lista[3]}')
-    linha_potencia.grid(row=4, column=1)
-    linha_aceleracao = ctk.CTkLabel(master=card, text=f'Aceleração: {lista[4]}')
-    linha_aceleracao.grid(row=5, column=1)
+    linha_categoria= ctk.CTkLabel(master=card, text=f'Categoria: {lista[0]}',font=("Arial", 13))
+    linha_categoria.grid(row=3, column=1)
+    linha_velocidade = ctk.CTkLabel(master=card, text=f'Velocidade: {lista[2]}',font=("Arial", 13))
+    linha_velocidade.grid(row=4, column=1)
+    linha_potencia = ctk.CTkLabel(master=card, text=f'Potência: {lista[3]}',font=("Arial", 13))
+    linha_potencia.grid(row=5, column=1)
+    linha_aceleracao = ctk.CTkLabel(master=card, text=f'Aceleração: {lista[4]}',font=("Arial", 13))
+    linha_aceleracao.grid(row=6, column=1)
     
     card.grid(row=1, column=1, columnspan=2)
     return card
@@ -147,4 +153,7 @@ def botao_padrao(janela,texto,cor,cor_hover,acao):
 def logica_voltar(janela):
     janela_jogo_inicio(janela)
 
+def nome_mapa(janela,texto,linha,coluna):
+    mapa_nome=ctk.CTkLabel(master=janela,text=texto,font=('Arial',15,'bold'))
+    mapa_nome.grid(row=linha,column=coluna,pady=(10,0))
 

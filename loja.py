@@ -109,23 +109,24 @@ def janela_loja(janela):
     garagem_janela.mainloop()
 
 def comprar_carro(valor_do_carro, carro_comprado):
-    if dinheiro.dinheiro_atual('dados_jogadores.json') >= valor_do_carro:
-        dados_jogadores = "dados_jogadores.json"  # Arquivo de dados dos jogadores
-
+    dados_jogadores = "dados_jogadores.json"  # Arquivo de dados dos jogadores
+    
+    if dinheiro.dinheiro_atual(dados_jogadores) >= valor_do_carro:
         # Verifica se o jogador já possui o carro na garagem
         jogador_encontrado = False
         for jogador_atual in cadastro.ler_json(dados_jogadores):
             if jogador_atual["nome"] == login.nome_user:
                 if carro_comprado in jogador_atual["carros_na_garagem"]:
                     tkmsgbox.showinfo("Aviso", f"Você já possui o carro {carro_comprado[1]} na sua garagem.")
-                    break
+                    return
                 else:
                     # Realiza a compra do carro e atualiza os dados do jogador
                     dinheiro.subtrair_dinheiro(dados_jogadores, valor_do_carro)
                     garagem_pessoal.adicionar_car_garage(dados_jogadores, carro_comprado)
-                    print(f"Carro comprado por R$ {valor_do_carro}. Dinheiro restante: R$ {dinheiro.dinheiro_atual(dados_jogadores)}.")
-                    tkmsgbox.showinfo("Compra realizada", f"Carro comprado por R$ {valor_do_carro}. Dinheiro restante: R$ {dinheiro.dinheiro_atual(dados_jogadores)}. Carro adicionado na garagem!")
-                    break
+                    dinheiro_atualizado = dinheiro.dinheiro_atual(dados_jogadores)
+                    print(f"Carro comprado por R$ {valor_do_carro}. Dinheiro restante: R$ {dinheiro_atualizado}.")
+                    tkmsgbox.showinfo("Compra realizada", f"Carro comprado por R$ {valor_do_carro}. Dinheiro restante: R$ {dinheiro_atualizado}. Carro adicionado na garagem!")
+                    return
     else:
         # Exibe mensagem de erro se o jogador não tiver dinheiro suficiente
         tkmsgbox.showerror("Erro", "Dinheiro insuficiente.")

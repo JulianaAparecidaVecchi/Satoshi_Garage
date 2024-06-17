@@ -73,32 +73,10 @@ def atualizar_carro(frame, matriz, indice):
 
     # Exibir a linha no frame
     if 0 <= indice < len(matriz):
-        cartao_carro = card_carro_garagem(frame, matriz[indice])
+        cartao_carro = menu_principal.card_carro(frame, matriz[indice])
         cartao_carro.grid(row=0, column=0)
 
-# Função para a janela da garagem
-def card_carro_garagem(janela, lista):
-    card = ctk.CTkFrame(master=janela, bg_color=cor_5)
-    img = menu_principal.converter_img(lista[5])  # Converter a imagem usando o endereço fornecido
-    if img:
-        imagem = ctk.CTkLabel(master=card, image=img, text='')
-        imagem.image=img
-        imagem.grid(row=1, column=1)
-    else:
-        # Lidar com o caso em que a imagem não pode ser carregada
-        print(f"Não foi possível carregar a imagem para {lista[1]}")
-    
-    linha_nome = ctk.CTkLabel(master=card, text=lista[1])
-    linha_nome.grid(row=2, column=1)
-    linha_velocidade = ctk.CTkLabel(master=card, text=f'Velocidade: {lista[2]}')
-    linha_velocidade.grid(row=3, column=1)
-    linha_potencia = ctk.CTkLabel(master=card, text=f'Potência: {lista[3]}')
-    linha_potencia.grid(row=4, column=1)
-    linha_aceleracao = ctk.CTkLabel(master=card, text=f'Aceleração: {lista[4]}')
-    linha_aceleracao.grid(row=5, column=1)
-    
-    card.grid(row=1, column=1)
-    return card
+
 
 def adicionar_car_inicial_garage(arquivo,carro,nome_jogador):
 

@@ -117,7 +117,7 @@ def comprar_carro(valor_do_carro, carro_comprado,janela):
             if jogador_atual["nome"] == login.nome_user:
                 if carro_comprado in jogador_atual["carros_na_garagem"]:
                     tkmsgbox.showinfo("Aviso", f"Você já possui o carro {carro_comprado[1]} na sua garagem.")
-                    return
+                    janela.destroy()
                 else:
                     # Realiza a compra do carro e atualiza os dados do jogador
                     dinheiro.subtrair_dinheiro(dados_jogadores, valor_do_carro)

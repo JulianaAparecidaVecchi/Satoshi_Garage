@@ -85,7 +85,7 @@ def janela_loja(janela):
         label_valor_carro.pack()
 
         # Botão "Comprar" para comprar o carro
-        botao_comprar = tk.Button(janela_valor_carro, text="Comprar", command=lambda: comprar_carro(valor_do_carro, carros[indice_carro_atual]))
+        botao_comprar = tk.Button(janela_valor_carro, text="Comprar", command=lambda: comprar_carro(valor_do_carro, carros[indice_carro_atual],janela_valor_carro))
         botao_comprar.pack()
 
         # Botão "Voltar" para fechar a janela
@@ -107,7 +107,7 @@ def janela_loja(janela):
 
     garagem_janela.mainloop()
 
-def comprar_carro(valor_do_carro, carro_comprado):
+def comprar_carro(valor_do_carro, carro_comprado,janela):
     dados_jogadores = "dados_jogadores.json"  # Arquivo de dados dos jogadores
     
     if dinheiro.dinheiro_atual(dados_jogadores) >= valor_do_carro:
@@ -125,6 +125,8 @@ def comprar_carro(valor_do_carro, carro_comprado):
                     dinheiro_atualizado = dinheiro.dinheiro_atual(dados_jogadores)
                     print(f"Carro comprado por R$ {valor_do_carro}. Dinheiro restante: R$ {dinheiro_atualizado}.")
                     tkmsgbox.showinfo("Compra realizada", f"Carro comprado por R$ {valor_do_carro}. Dinheiro restante: R$ {dinheiro_atualizado}. Carro adicionado na garagem!")
+                    janela.destroy()
+                    
                     return
     else:
         # Exibe mensagem de erro se o jogador não tiver dinheiro suficiente

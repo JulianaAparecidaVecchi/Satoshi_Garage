@@ -88,11 +88,11 @@ def mapa(master, row, column, img, variavel, valor):
 
 def iniciar_mapa(mapa,janela):
     if mapa == 1:
-        corrida.mapa_janela(janela,1,10)
+        corrida.mapa_janela(janela,0,9)
     elif mapa == 2:
-        corrida.mapa_janela(janela,11,15)
+        corrida.mapa_janela(janela,10,15)
     elif mapa == 3:
-        corrida.mapa_janela(janela,16,29)
+        corrida.mapa_janela(janela,16,28)
     else:
         messagebox.showinfo("MAPA INVÁLIDO","VOCÊ NÃO SELECIONOU NENHUM MAPA, ESCOLHA UM PARA PODER JOGAR!")
 

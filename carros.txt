@@ -14,17 +14,17 @@ Medianos,Hyundai Elantra,215,137,8,./img/medianos/HyundaiElantra.png,20000, 2000
 Medianos,Bmw 320i,240,160,25,./img/medianos/Bmw320i.png,20000, 20000
 Medianos,Chevrolet Cruze,220,140,15,./img/medianos/ChevroletCruze.png,20000, 20000
 Ultra Raro,Fiat Uno com Escada,650,750,90,./img/ultra_raro/unoescada.png,20000, 20000
-Semi-profissional,Chevrolet Camaro amarelo,250,180,40,./img/semiprofissional/ChevroletCamaro.png,50000,50000
+Semi-profissional,Chevrolet Camaro,250,180,40,./img/semiprofissional/ChevroletCamaro.png,50000,50000
 Semi-profissional,Ford Mustang,260,190,40,./img/semiprofissional/FordMustang.png,50000,50000
 Semi-profissional,Nissan 370Z,245,175,25,./img/semiprofissional/Nissan370Z.png,50000,50000
 Semi-profissional,Subaru WRX,240,170,30,./img/semiprofissional/SubaruWRX.png,50000,50000
 Semi-profissional,Mazda MX-5 Miata,235,165,40,./img/semiprofissional/MazdaMX-5Miata.png,50000,50000
 Semi-profissional,Toyota Supra,250,180,30,./img/semiprofissional/ToyotaSupra.png,50000,50000
-Semi-profissional,BMW M3,255,185,35,./img/semiprofissional/unoescada.png,50000,50000
+Semi-profissional,BMW M3,255,185,35,./img/semiprofissional/BMWM3.png,50000,50000
 Semi-profissional,Audi RS3,260,190,40,./img/semiprofissional/AudiRS3.png,50000,50000
 Semi-profissional,Mercedes-Benz C63 AMG,270,200,30,./img/semiprofissional/MercedesC63.png,50000,50000
 Semi-profissional,Porsche 911,280,210,35,./img/semiprofissional/Porsche911.png,50000,50000
 Profissionais, McLaren p1, 320, 900, 60, ./img/profissionais/mclarenp1.png,100000,100000
-Profissionais, Hennessey Venom F5, 320, 900, 60,./img/profissionais/Hennessey_Venom_F5.png,100000,100000
+Profissionais, Hennessey Venom F5, 320, 900, 60,./img/profissionais/vennomF5.png,100000,100000
 Ultra Raro,Fiat Uno com Escada,650,750,90,./img/ultra_raro/unoescada.png,50000,50000
 

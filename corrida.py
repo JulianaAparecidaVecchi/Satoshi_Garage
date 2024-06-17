@@ -61,7 +61,7 @@ def sortear_carro_mapa(arquivo, num1, num2):
     carro_sorteado_index = random.choices(range(num1, num2 + 1), weights=pesos, k=1)[0]
     
     # Selecionar o carro sorteado da lista
-    carro_sorteado = carros[carro_sorteado_index - num1].strip().split(',')
+    carro_sorteado = carros[carro_sorteado_index].strip().split(',')
     
     return carro_sorteado
 

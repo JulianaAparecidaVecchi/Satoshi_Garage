@@ -2,6 +2,7 @@ import tkinter as tk
 import customtkinter as ctk
 from PIL import Image, ImageTk
 import dinheiro
+from tkinter import messagebox
 import corrida
 import garagem_pessoal
 import loja
@@ -87,13 +88,13 @@ def mapa(master, row, column, img, variavel, valor):
 
 def iniciar_mapa(mapa,janela):
     if mapa == 1:
-        corrida.mapa_janela(janela,0,5)
+        corrida.mapa_janela(janela,1,10)
     elif mapa == 2:
-        corrida.mapa_janela(janela,11,10)
+        corrida.mapa_janela(janela,11,15)
     elif mapa == 3:
-        corrida.mapa_janela(janela,0,10)
+        corrida.mapa_janela(janela,16,29)
     else:
-        print('Mapa selecionado inválido')
+        messagebox.showinfo("MAPA INVÁLIDO","VOCÊ NÃO SELECIONOU NENHUM MAPA, ESCOLHA UM PARA PODER JOGAR!")
 
 def upgrade():
     print('Lógica do Upgrade')
@@ -112,7 +113,7 @@ def janela_primeiro_login(janela, nome_jogador):
     texto_parabens.grid(row=1, column=1, columnspan=2, padx=10, pady=10)
     texto_boasvindas = ctk.CTkLabel(janela_l1, text='Bem-vindo(a) à sua jornada veloz! Prepare-se para a adrenalina pura enquanto você conquista as estradas com o seu novo carro. Clique em Continuar e embarque em uma aventura cheia de velocidade e emoção!', font=('Arial', 16))
     texto_boasvindas.grid(row=2, column=1, columnspan=2, padx=10, pady=10)
-    carro_sorteado = garagem_pessoal.sortear_carro_inicial('carros.txt',0,10)
+    carro_sorteado = garagem_pessoal.sortear_carro_inicial('carros.txt',2,9)
     cartao_carro = card_carro(janela_l1, carro_sorteado)
     cartao_carro.grid(row=3, column=1)
     garagem_pessoal.adicionar_car_inicial_garage('dados_jogadores.json', carro_sorteado, nome_jogador)

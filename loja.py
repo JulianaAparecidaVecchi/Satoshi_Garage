@@ -23,7 +23,6 @@ carros = [
     ['Medianos', 'Honda Civic', 210, 135, 15, './img/medianos/HondaCivic.png', 28000],
     ['Medianos', 'Mitsubishi Lancer', 225, 145, 25, './img/medianos/MitsubishiLancer.png', 30000],
     ['Medianos', 'Audi A4', 230, 150, 25, './img/medianos/AudiA4.png', 35000],
-    ['Medianos', 'Bmw 320i', 240, 160, 25, './img/medianos/Bmw320i.png', 38000],
     ['Medianos', 'Subaru Impreza', 225, 145, 20, './img/medianos/SubaruImpreza.png', 29000],
     ['Profissionais', 'Bugatti Chiron 1500', 420, 1500, 55, './img/profissionais/bugatti-chiron-1500-.png', 2000000],
     ['Profissionais', 'Bugatti Veyron', 410, 1200, 40, './img/profissionais/BUGATTIVEYRON.png', 1500000],

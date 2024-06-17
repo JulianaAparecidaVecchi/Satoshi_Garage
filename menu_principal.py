@@ -83,11 +83,11 @@ def mapa(master, row, column, img, variavel, valor):
 
 def iniciar_mapa(mapa,janela):
     if mapa == 1:
-        janela_cidade(janela)
+        mapa_janela(janela,0,5)
     elif mapa == 2:
-        print('Mapa 2')
+        mapa_janela(janela,11,10)
     elif mapa == 3:
-        print('Mapa 3')
+        mapa_janela(janela,0,10)
     else:
         print('Mapa selecionado inválido')
 
@@ -100,9 +100,9 @@ def fechar_janela(janela):
 def lógica_mapa():
     print('Deserto')
 
-def janela_primeiro_login(janela, nome_jogador):
+def janela_primeiro_login(janela, nome_jogador,num1,num2):
     global carro_sorteado
-    fechar_janela(janela)
+    fechar_janela(janela,)
     janela_l1 = ctk.CTk()
     janela_l1.title('BEM VINDO(A)!')
     janela_l1.configure(bg='white')
@@ -111,7 +111,7 @@ def janela_primeiro_login(janela, nome_jogador):
     texto_parabens.grid(row=1, column=1, columnspan=2, padx=10, pady=10)
     texto_boasvindas = ctk.CTkLabel(janela_l1, text='Bem-vindo(a) à sua jornada veloz! Prepare-se para a adrenalina pura enquanto você conquista as estradas com o seu novo carro. Clique em Continuar e embarque em uma aventura cheia de velocidade e emoção!', font=('Arial', 16))
     texto_boasvindas.grid(row=2, column=1, columnspan=2, padx=10, pady=10)
-    carro_sorteado = garagem_pessoal.sortear_carro_inicial('carros.txt', 0, 18)
+    carro_sorteado = garagem_pessoal.sortear_carro_inicial('carros.txt',0,10)
     cartao_carro = card_carro(janela_l1, carro_sorteado)
     cartao_carro.grid(row=3, column=1)
     garagem_pessoal.adicionar_car_inicial_garage('dados_jogadores.json', carro_sorteado, nome_jogador)
@@ -152,7 +152,7 @@ def voltar_janela(janela,abrir_janela):
     fechar_janela(janela)
     abrir_janela
 
-def janela_cidade(janela):
+def mapa_janela(janela,num1,num2):
     global janela_mapa 
     fechar_janela(janela)
     janela_mapa = ctk.CTk()
@@ -162,7 +162,7 @@ def janela_cidade(janela):
     carro_selecionado=login.verificar_dono_carro_selecionado(garagem_pessoal.ler_json("dados_jogadores.json"))
     carro_jogador=card_carro(janela_mapa,carro_selecionado)
     carro_jogador.grid(row=0,column=1)
-    carro_st=corrida.sortear_carro_mapa('carros.txt',1,19)
+    carro_st=corrida.sortear_carro_mapa('carros.txt',num1,num2)
     carro_sorteado=card_carro(janela_mapa,carro_st)
     carro_sorteado.grid(row=0,column=3)
     #Convertendo para int

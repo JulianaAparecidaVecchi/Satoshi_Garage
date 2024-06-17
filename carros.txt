@@ -1,23 +1,13 @@
-Iniciais,Volkswagen Gol,180,80,12,./img/iniciais/volkswagengol.png
-Iniciais,Chevrolet Celta,170,78,13,./img/iniciais/chevroletcelta.png
-Iniciais,Chevrolet Corsa,175,82,11,./img/iniciais/chevroletcorsa.png
-Iniciais,Fiat Palio,165,76,14,./img/iniciais/fiatpalio.png
-Iniciais,Volkswagen Fox,170,79,13,./img/iniciais/volkswagenfox.png
-Iniciais,Fiat Siena,160,75,15,./img/iniciais/fiatsiena.png
-Iniciais,Ford Fiesta,180,83,12,./img/iniciais/fordfiesta.png
-Iniciais,Ford Ka,170,77,13,./img/iniciais/fordka.png
-Iniciais,HB20,175,80,12,./img/iniciais/hb20.png
-Iniciais,Chevrolet Onix,180,85,11,./img/iniciais/chevroletonix.png
-Iniciais,Peugeot 208,170,82,13,./img/iniciais/peugeot208.png
-Iniciais,Renault Sandero,165,79,14,./img/iniciais/renaultsandero.png
-Iniciais,Honda Fit,160,76,15,./img/iniciais/fiatsiena.png
-Iniciais,Volkswagen Fusca,155,74,15,./img/iniciais/volkswagenfusca.png
-Iniciais,Toyota Yaris,170,78,13,./img/iniciais/toyotayaris.png
-Iniciais,Ford Belina,150,72,15,./img/iniciais/fordbelina.png
-Iniciais,Nissan March,165,77,14,./img/iniciais/nissanmarch.png
-Iniciais,Renault Clio,160,75,15,./img/iniciais/renaultclio.png
-Iniciais,Fiat Punto,175,80,12,./img/iniciais/fiatpunto.png
-Ultra_Raro,Fiat_Uno_Com_Escada,650,750,90./img/ultra_raro/unoescada.png
+Iniciais,Fiat Siena,160,75,15,./img/iniciais/fiatsiena.png,5000,1000
+Iniciais,Ford Fiesta,180,83,12,./img/iniciais/fordfiesta.png,5000,0
+Iniciais,Ford Ka,170,77,13,./img/iniciais/fordka.png,5000,0
+Iniciais,Renault Sandero,165,79,14,./img/iniciais/renaultsandero.png,5000,0
+Iniciais,Honda Fit,160,76,15,./img/iniciais/fiatsiena.png,5000,0
+Iniciais,Volkswagen Fusca,155,74,15,./img/iniciais/volkswagenfusca.png,5000,0
+Iniciais,Ford Belina,150,72,15,./img/iniciais/fordbelina.png,5000,0
+Iniciais,Renault Clio,160,75,15,./img/iniciais/renaultclio.png,5000,0
+Iniciais,Fiat Punto,175,80,12,./img/iniciais/fiatpunto.png,5000,0
+Ultra_Raro,Fiat_Uno_Com_Escada,650,750,90./img/ultra_raro/unoescada.png,5000,0
 Medianos,Volkswagen Jetta,220,140,15
 Medianos,Honda Civic,210,135,15
 Medianos,Toyota Corolla,215,138,15
@@ -47,52 +37,4 @@ Profissional,Porsche 911 GT3 RS,320,520,50
 Profissional,McLaren Senna,330,800,45
 Profissional,Tesla Model S,320,1000,60
 Ultra Raro,Fiat Uno com Escada,650,750,90
-Iniciais,Volkswagen_Gol,180,80,12
-Iniciais,Chevrolet_Celta,170,78,13
-Iniciais,Chevrolet_Corsa,175,82,11
-Iniciais,Fiat_Palio,165,76,14
-Iniciais,Volkswagen_Fox,170,79,13
-Iniciais,Fiat_Siena,160,75,15
-Iniciais,Ford_Fiesta,180,83,12
-Iniciais,Ford_Ka,170,77,13
-Iniciais,HB20,175,80,12
-Iniciais,Chevrolet_Onix,180,85,11
-Iniciais,Peugeot_208,170,82,13
-Iniciais,Renault_Sandero,165,79,14
-Iniciais,Honda_Fit,160,76,15
-Iniciais,Volkswagen_Fusca,155,74,15
-Iniciais,Toyota_Yaris,170,78,13
-Iniciais,Ford_Belina,150,72,15
-Iniciais,Nissan_March,165,77,14
-Iniciais,Renault_Clio,160,75,15
-Iniciais,Fiat_Punto,175,80,12
-Medianos,Volkswagen_Jetta,220,140,15
-Medianos,Honda_Civic,210,135,15
-Medianos,Toyota_Corolla,215,138,15
-Medianos,Mitsubishi_Lancer,225,145,25
-Medianos,Nissan_Sentra,210,133,20
-Medianos,Hyundai_Elantra,215,137,8
-Medianos,Audi_A4,230,150,25
-Medianos,Bmw_320i,240,160,25
-Medianos,Chevrolet_Cruze,220,140,15
-Medianos,Subaru_Impreza,225,145,20
-Semi-profissional,Chevrolet_Camaro,250,180,40
-Semi-profissional,Ford_Mustang,260,190,40
-Semi-profissional,Nissan_370Z,245,175,25
-Semi-profissional,Subaru_WRX,240,170,30
-Semi-profissional,Mazda_MX-5_Miata,235,165,40
-Semi-profissional,Toyota_Supra,250,180,30
-Semi-profissional,BMW_M3,255,185,35
-Semi-profissional,Audi_RS3,260,190,40
-Semi-profissional,Mercedes_C63,270,200,30
-Semi-profissional,Porsche_911,280,210,35
-Profissional,Bugatti_Chiron,420,1500,55
-Profissional,Bugatti_Veyron,410,1200,40
-Profissional,Porsche_718_Spyder,310,500,75
-Profissional,Ferrari_LaFerrari,350,950,60
-Profissional,Ferrari_812_GTS,340,900,45
-Profissional,Porsche_911_Gt3,320,520,50
-Profissional,McLaren_Senna,330,800,45
-Profissional,Tesla_Model_S,320,1000,60
-Profissional,McLaren_P1,300,600,55
-Ultra_Raro,Fiat_Uno_Com_Escada,650,750,90
+

@@ -2,6 +2,8 @@ import menu_principal
 import tkinter as tk
 from tkinter import messagebox
 import login
+import json
+import cadastro
 import customtkinter as ctk
 import random
 
@@ -19,14 +21,14 @@ def aceitar_corrida(v1,a1,p1,v2,a2,p2,carro_ganhado,frame_fechar):
         #Adicionar carro ganhado na garagem
         login.adicionar_car_garage('dados_jogadores.json',carro_ganhado)
         #DInheiro ganho
+        ganhar_dinheiro('dados_jogadores.json',carro_ganhado)
         messagebox.showinfo("VITÓRIA","VOCÊ VENCEU!!PARABÉNS\nVOCÊ GANHOU O CARRO ADVERSÁRIO\nE GANHOU O DINHEIRO DA CORRIDA")
         voltar_mapa(frame_fechar)
-    
-        
         
     elif mediaPonderada(v1,a1,p1) < mediaPonderada(v2,a2,p2):
         messagebox.showinfo("DEROTA","VOCÊ PERDEU\nINFELIZMENTE VOCÊ PERDEU O DINHEIRO DA CORRIDA")
         #DInheiro descontado
+        perder_dinheiro('dados_jogadores.json',carro_ganhado)
         voltar_mapa(frame_fechar)
     else:
         messagebox.showinfo("EMPATE","Houve um empate!")
@@ -63,4 +65,57 @@ def sortear_carro_mapa(arquivo, num1, num2):
     carro_sorteado = carros[carro_sorteado_index - num1].strip().split(',')
     
     return carro_sorteado
+
+def ganhar_dinheiro(arquivo_json,carro_ganhado):
+    # Ler dados dos carros do arquivo TXT
+    # Ler dados dos jogadores do arquivo JSON
+    dados = cadastro.ler_json(arquivo_json)
+    
+    # Iterar sobre os jogadores nos dados
+    for jogador_atual in dados:
+        if jogador_atual["nome"] == login.nome_user:
+            # Obter o valor do carro na posição i do arquivo de texto (supondo que o índice 6 seja o valor do carro)
+            valor_carro_str = carro_ganhado[6]
+            
+            # Converter o valor do carro para inteiro
+            try:
+                valor_carro = int(valor_carro_str)
+            except ValueError:
+                print(f"Erro: Não foi possível converter '{valor_carro_str}' para inteiro.")
+                return
+            
+            # Adicionar o valor do carro ao dinheiro no banco do jogador
+            jogador_atual["dinheiro_no_banco"] += valor_carro
+            
+            # Parar a iteração pois encontramos o jogador
+            break
+    
+    # Escrever os dados atualizados de volta no arquivo JSON
+    cadastro.escrever_json(dados, arquivo_json)
+
+def perder_dinheiro( arquivo_json,carro_ganhado):
+    # Ler dados dos jogadores do arquivo JSON
+    dados = cadastro.ler_json(arquivo_json)
+    # Iterar sobre os jogadores nos dados
+    for jogador_atual in dados:
+        if jogador_atual["nome"] == login.nome_user:
+            # Obter o valor do carro na posição i do arquivo de texto (supondo que o índice 7 seja o valor do carro)
+            valor_carro_str = carro_ganhado[7]
+            
+            # Converter o valor do carro para inteiro
+            try:
+                valor_carro = int(valor_carro_str)
+            except ValueError:
+                print(f"Erro: Não foi possível converter '{valor_carro_str}' para inteiro.")
+                return
+            
+            # Subtrair o valor do carro do dinheiro no banco do jogador
+            jogador_atual["dinheiro_no_banco"] -= valor_carro
+            
+            # Parar a iteração pois encontramos o jogador
+            break
+    
+    # Escrever os dados atualizados de volta no arquivo JSON
+    cadastro.escrever_json(dados, arquivo_json)
+
 

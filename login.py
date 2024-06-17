@@ -77,36 +77,41 @@ def login_usuario():
 #Cria a janela login
 def janela_login():
     global frame_login, login_janela, input_nome, input_senha
-    login_janela= ctk.CTk()
+    login_janela= ctk.CTk(fg_color='white')
     login_janela.title('Login Satoshi Garage')
+    # Definindo o tamanho da janela (largura x altura)
+    largura = 1100
+    altura = 600
+    login_janela.geometry(f'{largura}x{altura}')
 
-    img = tk.PhotoImage(file='./img/icones/logosf.png')
+    # Impedindo o redimensionamento da janela
+    login_janela.resizable(False, False)
+    img = tk.PhotoImage(file='./img/icones/logosg.png')
     label_img = tk.Label(master=login_janela, image=img)
     label_img.image = img
-    label_img.grid(column=1, row=1, padx=20, pady=20)
+    label_img.grid(column=1, row=1, pady=20)
 
-    frame_login = ctk.CTkFrame(master=login_janela, width=400, height=400)
-    frame_login.grid(column=2, row=1, padx=20, pady=20)
-
+    frame_login = ctk.CTkFrame(master=login_janela,width=300, height=50)
+    frame_login.grid(column=2, row=1, padx=20, pady=30)
     label_title = ctk.CTkLabel(master=frame_login, text='LOGIN SATOSHI GARAGE', font=("Arial", 30, "bold"))
-    label_title.grid(column=1, row=1, padx=20, pady=20)
+    label_title.grid(column=1, row=1, padx=20, pady=30)
 
-    input_nome = ctk.CTkEntry(master=frame_login, placeholder_text='Nome de usuário', width=300, height=50,
+    input_nome = ctk.CTkEntry(master=frame_login, placeholder_text='Nome de usuário', width=500, height=55,
                               font=("Arial", 25))
     input_nome.grid(column=1, row=2, padx=20, pady=20)
 
-    input_senha = ctk.CTkEntry(master=frame_login, placeholder_text='Senha', width=300, font=("Arial", 15), show="*")
+    input_senha = ctk.CTkEntry(master=frame_login, placeholder_text='Senha', width=500, height=55, font=("Arial", 25), show="*")
     input_senha.grid(column=1, row=3, padx=20, pady=20)
 
-    botao_logar = ctk.CTkButton(master=frame_login, text='LOGIN', width=300, fg_color=cor_botao,
+    botao_logar = ctk.CTkButton(master=frame_login, text='LOGIN', font=('Arial', 23),fg_color=cor_botao,width=370, height=45,
                                  hover_color=cor_botao_hover, command=login_usuario)
-    botao_logar.grid(column=1, row=4, padx=20, pady=20)
+    botao_logar.grid(column=1, row=4, padx=20, pady=50)
 
-    label_cadastro = ctk.CTkLabel(master=frame_login, text='Caso não tenha cadastro:', font=('Arial', 15))
+    label_cadastro = ctk.CTkLabel(master=frame_login, text='Caso não tenha cadastro:', font=('Arial', 18))
     label_cadastro.grid(column=1, row=5)
-    botao_cadastro = ctk.CTkButton(master=frame_login, text='CADASTRAR-SE', font=('Arial', 15), width=300,
+    botao_cadastro = ctk.CTkButton(master=frame_login, text='CADASTRAR-SE', font=('Arial', 23), width=370, height=45,
                                    fg_color=cor_botao, hover_color=cor_botao_hover, command=login_cadastrar)
-    botao_cadastro.grid(column=1, row=6, padx=20, pady=20)
+    botao_cadastro.grid(column=1, row=6, padx=20, pady=(5,50))
 
     login_janela.mainloop()
 
@@ -119,30 +124,30 @@ def login_cadastrar():
     frame_cadastro = ctk.CTkFrame(master=login_janela, width=400, height=400)
     frame_cadastro.grid(column=2, row=1, padx=20, pady=20)
 
-    label_cadastro = ctk.CTkLabel(master=frame_cadastro, text='CADASTRAR-SE AQUI', font=("Arial", 15, "bold"))
+    label_cadastro = ctk.CTkLabel(master=frame_cadastro, text='CADASTRAR-SE AQUI', font=("Arial", 30, "bold"))
     label_cadastro.grid(column=1, row=1, padx=20, pady=20)
 
-    label_obg1 = ctk.CTkLabel(master=frame_cadastro, text='*Campo obrigatório', font=("Arial", 10, "bold"),
+    label_obg1 = ctk.CTkLabel(master=frame_cadastro, text='*Campo obrigatório',font=('Arial', 18,"bold"),
                                text_color=cor_botao_hover)
-    label_obg1.grid(column=1, row=2)
-    input_nome_cadastro = ctk.CTkEntry(master=frame_cadastro, placeholder_text='Nome de usuário', width=300,
-                                        font=("Arial", 15))
-    input_nome_cadastro.grid(column=1, row=3, padx=20)
+    label_obg1.grid(column=1, row=2,pady=(20,0))
+    input_nome_cadastro = ctk.CTkEntry(master=frame_cadastro, placeholder_text='Nome de usuário', width=500, height=55,
+                              font=("Arial", 25))
+    input_nome_cadastro.grid(column=1, row=3, padx=20,pady=(0,20))
 
-    label_obg2 = ctk.CTkLabel(master=frame_cadastro, text='*Campo obrigatório', font=("Arial", 10, "bold"),
+    label_obg2 = ctk.CTkLabel(master=frame_cadastro, text='*Campo obrigatório',font=('Arial', 18,"bold"),
                                text_color=cor_botao_hover)
-    label_obg2.grid(column=1, row=4)
-    input_senha_cadastro = ctk.CTkEntry(master=frame_cadastro, placeholder_text='Senha', width=300,
-                                        font=("Arial", 15), show="*")
-    input_senha_cadastro.grid(column=1, row=5, padx=20)
+    label_obg2.grid(column=1, row=4,pady=(20,0))
+    input_senha_cadastro = ctk.CTkEntry(master=frame_cadastro, placeholder_text='Senha', width=500, height=55,
+                              font=("Arial", 25), show="*")
+    input_senha_cadastro.grid(column=1, row=5, padx=20,pady=(0,20))
 
-    botao_cadastrar = ctk.CTkButton(master=frame_cadastro, text='CADASTRAR-SE', font=('Arial', 15), width=300,
+    botao_cadastrar = ctk.CTkButton(master=frame_cadastro, text='CADASTRAR-SE', font=('Arial', 23), width=370, height=45,
                                     fg_color=cor_botao, hover_color=cor_botao_hover, command=realizar_cadastro)
-    botao_cadastrar.grid(column=1, row=6, padx=20, pady=40)
+    botao_cadastrar.grid(column=1, row=6,padx=20, pady=40)
 
-    botao_voltar = ctk.CTkButton(master=frame_cadastro, text='VOLTAR', font=('Arial', 15), width=150,
+    botao_voltar = ctk.CTkButton(master=frame_cadastro, text='VOLTAR', font=('Arial', 23), width=370, height=45,
                                   fg_color=cor_botao, hover_color=cor_botao_hover, command=voltar_login)
-    botao_voltar.grid(column=1, row=7, pady=10)
+    botao_voltar.grid(column=1, row=7,padx=20, pady=(40,50))
 
 #Realiza cadastro
 def realizar_cadastro():

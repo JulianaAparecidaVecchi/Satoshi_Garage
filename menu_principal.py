@@ -157,6 +157,6 @@ def logica_voltar(janela):
     janela_jogo_inicio(janela)
 
 def nome_mapa(janela,texto,linha,coluna):
-    mapa_nome=ctk.CTkLabel(master=janela,text=texto,font=('Arial',15,'bold'))
+    mapa_nome=ctk.CTkLabel(master=janela,text=texto,font=('Arial',15,'bold'),text_color='black')
     mapa_nome.grid(row=linha,column=coluna,pady=(5,0))
 

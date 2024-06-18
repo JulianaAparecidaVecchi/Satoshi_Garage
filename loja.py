@@ -16,12 +16,12 @@ carros = [
 ['Iniciais', 'Nissan March', '165', '77', '14', './img/iniciais/nissanmarch.png', '15000'],
 ['Iniciais', 'Volkswagen Fox', '170', '79', '13', './img/iniciais/volkswagenfox.png', '16000'],
 ['Iniciais', 'Chevrolet Corsa', '175', '82', '11', './img/iniciais/chevroletcorsa.png', '20000'],
-['Iniciais', 'Peugeot 208', '185', '82', '13', './img/iniciais/peugeot208.png', '40000'],
 ['Iniciais', 'Volkswagen Gol', '180', '80', '12', './img/iniciais/volkswagengol.png', '25000'],
 ['Iniciais', 'HB20', '175', '85', '12', './img/iniciais/hb20.png', '25000'],
 ['Iniciais', 'Toyota Yaris', '180', '78', '13', './img/iniciais/toyotayaris.png', '25000'],
 ['Iniciais', 'Chevrolet Onix', '180', '85', '11', './img/iniciais/chevroletonix.png', '30000'],
-['Medianos', 'Volkswagen Jetta', '220', '140', '15', './img/medianos/VolkswagenJetta.png', '60000'],
+['Iniciais', 'Peugeot 208', '185', '82', '13', './img/iniciais/peugeot208.png', '40000'],
+['Medianos', 'Volkswagen Jetta', '220', '140', '15', './img/medianos/VolkswagenJetta.png', '50000'],
 ['Medianos', 'Honda Civic', '210', '150', '15', './img/medianos/HondaCivic.png', '65000'],
 ['Medianos', 'Subaru Impreza', '225', '145', '20', './img/medianos/SubaruImpreza.png', '75000'],
 ['Medianos', 'Audi A4', '230', '150', '25', './img/medianos/AudiA4.png', '80000'],
@@ -115,9 +115,9 @@ def janela_loja(janela):
 
     garagem_janela.mainloop()
 
-def comprar_carro(valor_do_carro, carro_comprado,janela):
+def comprar_carro(valorcarro, carro_comprado,janela):
     dados_jogadores = "dados_jogadores.json"  # Arquivo de dados dos jogadores
-    
+    valor_do_carro=int(valorcarro)
     if dinheiro.dinheiro_atual(dados_jogadores) >= valor_do_carro:
         # Verifica se o jogador já possui o carro na garagem
         jogador_encontrado = False

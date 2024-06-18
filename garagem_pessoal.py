@@ -19,7 +19,10 @@ def janela_garagem(janela):
     global carro_atual
     menu_principal.fechar_janela(janela)
     garagem_janela = ctk.CTk()
+    garagem_janela.resizable(False, False)
     garagem_janela.title("Garagem")
+    carro_text=ctk.CTkLabel(master=garagem_janela, text='Seus Carros', font=('Arial', 25,'bold'))
+    carro_text.grid(row=0, column=1,pady=20)
     carros = verificar_dono_garagem(cadastro.ler_json("dados_jogadores.json"))
 
     frame_conteudo = ctk.CTkFrame(garagem_janela)
@@ -47,13 +50,13 @@ def janela_garagem(janela):
             carro_atual = carros[indice_linha_atual]
 
     botao_proximo = menu_principal.botao_padrao(garagem_janela, 'PRÓXIMO', cor_2, cor_3, proxima_linha)
-    botao_proximo.grid(row=1, column=2)
+    botao_proximo.grid(row=1, column=2,padx=20)
     botao_anterior = menu_principal.botao_padrao(garagem_janela, 'ANTERIOR', cor_2, cor_3, linha_anterior)
-    botao_anterior.grid(row=1, column=0)
+    botao_anterior.grid(row=1, column=0,padx=20)
     botao_voltar = menu_principal.botao_padrao(garagem_janela, 'VOLTAR', cor_1, cor_7, lambda:menu_principal.logica_voltar(garagem_janela))
     botao_voltar.grid(row=3, column=0, pady=20)
     botao_selecionar = menu_principal.botao_padrao(garagem_janela, 'SELECIONAR', cor_2, cor_3, lambda: selecionar_carro(carro_atual))
-    botao_selecionar.grid(row=2, column=0)
+    botao_selecionar.grid(row=2, column=1,pady=20)
 
     garagem_janela.mainloop()
 

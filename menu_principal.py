@@ -22,6 +22,7 @@ cor_9= '#41D95F'
 def janela_jogo_inicio(janela):
     fechar_janela(janela)
     janela_jogo = ctk.CTk()
+    janela_jogo.resizable(False, False)
     janela_jogo.title('SATOSHI GARAGE')
     janela_jogo.minsize(300, 650)
     menu_frame(janela_jogo)
@@ -60,12 +61,12 @@ def geral_frame(master):
     frame_geral.grid(row=1, column=2)
 
     titulo_mapa = ctk.CTkLabel(master=frame_geral, text='MAPAS', font=('Arial', 25,'bold'))
-    titulo_mapa.grid(row=1, column=2,pady=20)
+    titulo_mapa.grid(row=0, column=2,pady=(5,3))
 
     caixa_dinheiro_jogador =ctk.CTkLabel(master=frame_geral,bg_color=cor_3,text="")
     dinheiro_jogador=ctk.CTkLabel(master=caixa_dinheiro_jogador, text=f"R$:{dinheiro.dinheiro_atual("dados_jogadores.json")}", font=('Arial', 20),text_color='white',bg_color=cor_3)
     dinheiro_jogador.grid(row=0,column=0,pady=5,padx=5)
-    caixa_dinheiro_jogador.grid(row=1, column=3,pady=20)
+    caixa_dinheiro_jogador.grid(row=0, column=3,pady=(5,3))
 
     mapa_selecionado = tk.IntVar()
 
@@ -106,12 +107,13 @@ def janela_primeiro_login(janela, nome_jogador):
     global carro_sorteado
     fechar_janela(janela,)
     janela_l1 = ctk.CTk()
+    janela_l1.resizable(False, False)
     janela_l1.title('BEM VINDO(A)!')
     janela_l1.configure(bg='white')
     janela_l1.minsize(300, 650)
     texto_parabens = ctk.CTkLabel(janela_l1, text='PARABÉNS', font=('Arial', 22, 'bold'), text_color=cor_1)
     texto_parabens.grid(row=1, column=1, columnspan=2, padx=10, pady=10)
-    texto_boasvindas = ctk.CTkLabel(janela_l1, text='Bem-vindo(a) à sua jornada veloz! Prepare-se para a adrenalina pura enquanto você conquista as estradas com o seu novo carro. Clique em Continuar e embarque em uma aventura cheia de velocidade e emoção!', font=('Arial', 16))
+    texto_boasvindas = ctk.CTkLabel(janela_l1, text='Bem-vindo(a) à sua jornada veloz! Prepare-se para a adrenalina pura enquanto você conquista as estradas com o seu novo carro. \nClique em Continuar e embarque em uma aventura cheia de velocidade e emoção!', font=('Arial', 16))
     texto_boasvindas.grid(row=2, column=1, columnspan=2, padx=10, pady=10)
     carro_sorteado = garagem_pessoal.sortear_carro_inicial('carros.txt',1,8)
     cartao_carro = card_carro(janela_l1, carro_sorteado)
@@ -127,7 +129,7 @@ def janela_primeiro_login(janela, nome_jogador):
 def card_carro(janela, lista):
     card = ctk.CTkFrame(master=janela, bg_color=cor_5)
     linha_nome = ctk.CTkLabel(master=card, text=lista[1], font=("Arial", 20, "bold"))
-    linha_nome.grid(row=1, column=1,pady=10)
+    linha_nome.grid(row=1, column=1,pady=(10,0))
     img = converter_img(lista[5])  # Converter a imagem usando o endereço fornecido
     if img:
         imagem = ctk.CTkLabel(master=card, image=img, text='')
@@ -156,5 +158,5 @@ def logica_voltar(janela):
 
 def nome_mapa(janela,texto,linha,coluna):
     mapa_nome=ctk.CTkLabel(master=janela,text=texto,font=('Arial',15,'bold'))
-    mapa_nome.grid(row=linha,column=coluna,pady=(10,0))
+    mapa_nome.grid(row=linha,column=coluna,pady=(5,0))
 

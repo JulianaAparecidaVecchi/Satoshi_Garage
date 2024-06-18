@@ -60,7 +60,7 @@ def geral_frame(master):
     frame_geral = ctk.CTkFrame(master=master, fg_color=cor_5)
     frame_geral.grid(row=1, column=2)
 
-    titulo_mapa = ctk.CTkLabel(master=frame_geral, text='MAPAS', font=('Arial', 25,'bold'))
+    titulo_mapa = ctk.CTkLabel(master=frame_geral,text_color='black', text='MAPAS', font=('Arial', 25,'bold'))
     titulo_mapa.grid(row=0, column=2,pady=(5,3))
 
     caixa_dinheiro_jogador =ctk.CTkLabel(master=frame_geral,bg_color=cor_3,text="")

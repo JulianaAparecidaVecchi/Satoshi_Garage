@@ -37,7 +37,7 @@ def voltar_mapa(frame):
         menu_principal.janela_jogo_inicio(frame)
 
 def mediaPonderada(v,a,p):
-    mediaP=((v*5)+(a*3)+(p*2)) / 10
+    mediaP=((v*5)+(a*2)+(p*3)) / 10
     return mediaP   
 
 def passar_int(lista,i):
